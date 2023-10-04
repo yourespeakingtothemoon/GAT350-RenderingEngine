@@ -1,5 +1,6 @@
 #include "World01.h"
 #include "CheekyLittleDVDLogo.h"
+#include "CLDLAccelerated.h"
 #include "Core/Core.h"
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
@@ -16,7 +17,7 @@ int main(int argc, char* argv[])
 
 	ENGINE.Initialize();
 
-	auto world = make_unique<nc::CheekyLittleDVDLogo>();
+	auto world = make_unique<nc::CLDLAccelerated>();
 	world->Initialize();
 
 	// main loop

@@ -16,12 +16,18 @@
     <ClCompile Include="CheekyLittleDVDLogo.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="CLDLAccelerated.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="CheekyLittleDVDLogo.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="CLDLAccelerated.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
