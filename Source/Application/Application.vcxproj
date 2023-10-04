@@ -131,6 +131,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CheekyLittleDVDLogo.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="World01.cpp" />
   </ItemGroup>
@@ -149,6 +150,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CheekyLittleDVDLogo.h" />
     <ClInclude Include="World01.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
