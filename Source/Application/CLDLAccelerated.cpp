@@ -2,6 +2,9 @@
 #include "Framework/Framework.h"
 
 #include "Input/InputSystem.h"
+
+#define INTERLEAVE 
+
 namespace nc
 {
     bool CLDLAccelerated::Initialize()
@@ -43,45 +46,45 @@ namespace nc
         glUseProgram(shaderProgram);
 
 
+#ifdef INTERLEAVE
         //vertex time
-        float positionData[] = {
-          -0.8f, -0.8f, 0.0f,
-           0.8f, -0.8f, 0.0f,
-           0.0f,  0.8f, 0.0f
-        };
-        //color time
-        float colorData[] = {
-            1.0f, 1.0f, 0.0f, // orange
-            1.0f, 0.0f, 1.0f, // purple
-            0.0f, 1.0f, 1.0f  // teal
+        float vertexData[] = {
+          -0.8f, -0.8f, 0.0f, 1.0f, 1.0f, 0.0f, // yellow
+           0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 1.0f, // purple
+           0.8f,  0.8f, 0.0f,  0.0f, 1.0f, 1.0f, // teal
+           -0.8f,  0.8f, 0.0f,  1.0f, 0.0f, 0.0f // red
         };
        
 
-        GLuint vbo[2];
-        glGenBuffers(2, vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(positionData), positionData, GL_STATIC_DRAW);
-        
-        glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW);
 
+        GLuint vbo;
+        glGenBuffers(1, &vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+
+       
         //GLuint vao;
         glGenVertexArrays(1, &m_vao);
         glBindVertexArray(m_vao);
+
+        glBindVertexBuffer(0, vbo, 0, sizeof(GLfloat) * 6);
         
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindVertexBuffer(0, vbo[0], 0, sizeof(GLfloat) * 3);
+        glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+        glVertexAttribBinding(0, 0);
 
         glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindVertexBuffer(1, vbo[1], 0, sizeof(GLfloat) * 3);
+        glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*3);
+        glVertexAttribBinding(1, 0);
 
-        
-       
 
-        
 
+
+
+#else
+
+     
+#endif
 
         return true;
        
@@ -132,7 +135,7 @@ namespace nc
 
         // render
         glBindVertexArray(m_vao);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_QUADS, 0, 4);
 
         // post-render
         renderer.EndFrame();
