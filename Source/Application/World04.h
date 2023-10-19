@@ -10,8 +10,7 @@ namespace nc
 	public:
 		bool Initialize() override;
 		World04() {
-			velocityX = (rand() % 2 == 0 ? 1 : -1);  // Randomly choose left or right
-			 velocityY = (rand() % 2 == 0 ? 1 : -1);  // Randomly choose up or down
+
 		};
 		void Shutdown() override;
 		void Update(float dt) override;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Framework/System.h"
-#include <imgui/imgui_impl_sdl.h>
-#include <imgui/imgui_impl_opengl3.h>
+//#include <imgui/imgui_impl_sdl.h>
+//#include <imgui/imgui_impl_opengl3.h>
 #include <SDL2-2.28.4/include/SDL.h>
 
 namespace nc
