@@ -1,6 +1,7 @@
 #include "World01.h"
 #include "World02.h"
-#include "World03.h"
+#include "CheekyLittleDVDLogo.h"
+#include "CLDLAccelerated.h"
 #include "World04.h"
 #include "Core/Core.h"
 #include "Framework/Framework.h"
