@@ -6,7 +6,7 @@
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Shaders">
-      <UniqueIdentifier>{91f5d19a-8364-41af-aadd-88cad274a8bd}</UniqueIdentifier>
+      <UniqueIdentifier>{235be56a-101f-40da-bee0-f3050c3c01ef}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -16,10 +16,10 @@
     <ClCompile Include="World01.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="CheekyLittleDVDLogo.cpp">
+    <ClCompile Include="World02.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="CLDLAccelerated.cpp">
+    <ClCompile Include="World03.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="World04.cpp">
@@ -30,10 +30,10 @@
     <ClInclude Include="World01.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="CheekyLittleDVDLogo.h">
+    <ClInclude Include="World02.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="CLDLAccelerated.h">
+    <ClInclude Include="World03.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="World04.h">
@@ -41,13 +41,37 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Build\Assets\Shaders\unlit_color.prog">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="..\..\Build\Assets\Shaders\unlit_color.frag">
       <Filter>Shaders</Filter>
     </None>
+    <None Include="..\..\Build\Assets\Shaders\unlit_color.prog">
+      <Filter>Shaders</Filter>
+    </None>
     <None Include="..\..\Build\Assets\Shaders\unlit_color.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.prog">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.prog">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.prog">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

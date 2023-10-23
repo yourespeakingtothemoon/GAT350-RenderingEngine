@@ -108,7 +108,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ThirdPartyDir)SDL2-2.28.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -132,10 +131,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CheekyLittleDVDLogo.cpp" />
-    <ClCompile Include="CLDLAccelerated.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="World01.cpp" />
+    <ClCompile Include="World02.cpp" />
+    <ClCompile Include="World03.cpp" />
     <ClCompile Include="World04.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -153,15 +152,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CheekyLittleDVDLogo.h" />
-    <ClInclude Include="CLDLAccelerated.h" />
     <ClInclude Include="World01.h" />
+    <ClInclude Include="World02.h" />
+    <ClInclude Include="World03.h" />
     <ClInclude Include="World04.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.frag" />
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.prog" />
+    <None Include="..\..\Build\Assets\Shaders\lit_texture.vert" />
     <None Include="..\..\Build\Assets\Shaders\unlit_color.frag" />
     <None Include="..\..\Build\Assets\Shaders\unlit_color.prog" />
     <None Include="..\..\Build\Assets\Shaders\unlit_color.vert" />
+    <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.frag" />
+    <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.prog" />
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.frag" />
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.prog" />
+    <None Include="..\..\Build\Assets\Shaders\unlit_texture.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

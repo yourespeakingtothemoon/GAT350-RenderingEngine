@@ -8,9 +8,6 @@ namespace nc
 	void APIENTRY DebugCallback(GLenum source, GLenum type, GLuint id,
 		GLenum severity, GLsizei length, const GLchar* message, const void* param);
 
-	const int FPS = 60;
-	const int FRAME_DELAY = 1000 / FPS;
-
 	bool Renderer::Initialize()
 	{
 		SDL_Init(SDL_INIT_VIDEO);
@@ -34,37 +31,50 @@ namespace nc
 		m_height = height;
 
 		m_window = SDL_CreateWindow(title.c_str(), 100, 100, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
-		m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_ACCELERATED);
 
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-		SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL,1);
+		SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
 
 		SDL_GL_SetSwapInterval(1);
 
 		m_context = SDL_GL_CreateContext(m_window);
-
 		gladLoadGL();
 
+		glEnable(GL_DEBUG_OUTPUT);
+		glDebugMessageCallback(DebugCallback, 0);
+		// disable all messages with severity `GL_DEBUG_SEVERITY_NOTIFICATION`
+		glDebugMessageControl(
+			GL_DONT_CARE,
+			GL_DONT_CARE,
+			GL_DEBUG_SEVERITY_NOTIFICATION,
+			0, NULL,
+			GL_FALSE);
+
 		glViewport(0, 0, width, height);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LESS);
+
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+		glFrontFace(GL_CCW);
 	}
 
 	void Renderer::BeginFrame()
 	{
-		glClearColor(0,0,0,1);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(0, 0, 0, 1);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Renderer::EndFrame()
 	{
-		int frameStart = SDL_GetTicks();
 		SDL_GL_SwapWindow(m_window);
-		int frameTime = SDL_GetTicks() - frameStart;
-		if (FRAME_DELAY > frameTime) {
-			SDL_Delay(FRAME_DELAY - frameTime);
-		}
 	}
 
 	void Renderer::SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
@@ -90,73 +100,6 @@ namespace nc
 	void Renderer::DrawPoint(float x, float y)
 	{
 		SDL_RenderDrawPointF(m_renderer, x, y);
-	}
-
-	void Renderer::DrawTexture(Texture* texture, float x, float y, float angle)
-	{
-		vec2 size = texture->GetSize();
-
-		SDL_Rect dest;
-		dest.x = (int)(x - (size.x * 0.5f));
-		dest.y = (int)(y - (size.y * 0.5f));
-		dest.w = (int)size.x;
-		dest.h = (int)size.y;
-
-		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, angle, nullptr, SDL_FLIP_NONE);
-	}
-
-	void Renderer::DrawTexture(Texture* texture, const Transform& transform)
-	{
-		mat3 mx = transform.GetMatrix();
-
-		vec2 position = mx.GetTranslation();
-		vec2 size = texture->GetSize() * mx.GetScale();
-
-		SDL_Rect dest;
-		dest.x = (int)(position.x - (size.x * 0.5f));
-		dest.y = (int)(position.y - (size.y * 0.5f));
-		dest.w = (int)size.x;
-		dest.h = (int)size.y;
-
-		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, RadiansToDegrees(mx.GetRotation()), nullptr, SDL_FLIP_NONE);
-	}
-
-	void Renderer::DrawTexture(Texture* texture, const Rect& source, const Transform& transform)
-	{
-		mat3 mx = transform.GetMatrix();
-
-		vec2 position = mx.GetTranslation();
-		vec2 size = vec2{ source.w, source.h } * mx.GetScale();
-
-		SDL_Rect dest;
-		dest.x = (int)(position.x - (size.x * 0.5f));
-		dest.y = (int)(position.y - (size.y * 0.5f));
-		dest.w = (int)size.x;
-		dest.h = (int)size.y;
-
-		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)(&source), &dest, RadiansToDegrees(mx.GetRotation()), nullptr, SDL_FLIP_NONE);
-	}
-
-	void Renderer::DrawTexture(Texture* texture, const Rect& source, const Transform& transform, const vec2& origin, bool flipH)
-	{
-		mat3 mx = transform.GetMatrix();
-
-		vec2 position = mx.GetTranslation();
-		vec2 size = vec2{ source.w, source.h } *mx.GetScale();
-
-		SDL_Rect dest;
-		dest.x = (int)(position.x - (size.x * origin.x));
-		dest.y = (int)(position.y - (size.y * origin.y));
-		dest.w = (int)size.x;
-		dest.h = (int)size.y;
-
-		SDL_Point center{ (int)(size.x * origin.x), (int)(size.y * origin.y) };
-
-		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)(&source), &dest, RadiansToDegrees(mx.GetRotation()), &center, (flipH) ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE);
 	}
 
 	void APIENTRY DebugCallback(GLenum source, GLenum type, GLuint id,

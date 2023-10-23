@@ -1,64 +1,21 @@
 #include "World04.h"
 #include "Framework/Framework.h"
-
 #include "Input/InputSystem.h"
+#include "Renderer/Renderer.h"
+#include <glm/glm/gtc/type_ptr.hpp>
 
-#define INTERLEAVE 
 
 namespace nc
 {
     bool World04::Initialize()
     {
-
-        m_program = GET_RESOURCE(Program, "Shaders/unlit_color.prog");
-        m_program->Use();
-
-#ifdef INTERLEAVE
-        //vertex time
-        float vertexData[] = {
-          -0.8f, -0.8f, 0.0f, 1.0f, 1.0f, 0.0f, // yellow
-           0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 1.0f, // purple
-           0.8f,  0.8f, 0.0f,  0.0f, 1.0f, 1.0f, // teal
-           -0.8f,  0.8f, 0.0f,  1.0f, 0.0f, 0.0f // red
-        };
-       
-
-
-        GLuint vbo;
-        glGenBuffers(1, &vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
-
-       
-        //GLuint vao;
-        glGenVertexArrays(1, &m_vao);
-        glBindVertexArray(m_vao);
-
-        glBindVertexBuffer(0, vbo, 0, sizeof(GLfloat) * 6);
-        
-        glEnableVertexAttribArray(0);
-        glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
-        glVertexAttribBinding(0, 0);
-
-        glEnableVertexAttribArray(1);
-        glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat)*3);
-        glVertexAttribBinding(1, 0);
-
-
-
-
-
-#else
-
-     
-#endif
+        auto material = GET_RESOURCE(Material, "Materials/grid.mtrl");
+        m_model = std::make_shared<Model>();
+        m_model->SetMaterial(material);
+        //m_model->Load("Models/buddha.obj", glm::vec3{ 0 }, glm::vec3{ -90, 0, 0 });
+        m_model->Load("Models/teapot.obj");
 
         return true;
-       
-        //  std::cout << "dt: " << dt << std::endl;
-       // 
-      //  velocityX = -1;
-     //   velocityY = 1;
     }
 
     void World04::Shutdown()
@@ -67,36 +24,65 @@ namespace nc
 
     void World04::Update(float dt)
     {
-        //m_angle += .1f * dt;
-        //m_position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? .01f * dt : 0;
-        //m_position.x -= ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? .01f * dt : 0;
-        // m_position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? 1 : 0;
-         //m_position.y -= ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? 1 : 0;
-        //m_time += dt;
+        ENGINE.GetSystem<Gui>()->BeginFrame();
 
-       // float speed = 0.5f * dt;
-   
+        ImGui::Begin("Transform");
+        ImGui::DragFloat3("Position", &m_transform.position[0], 0.1f);
+        ImGui::DragFloat3("Rotation", &m_transform.rotation[0], 0.1f);
+        ImGui::DragFloat3("Scale", &m_transform.scale[0], 0.1f);
+        ImGui::End();
 
-        
-       // m_position.x += velocityX*speed;
-       // m_position.y += velocityY*speed;
+        ImGui::Begin("Light");
+        ImGui::DragFloat3("Light Position", &position[0], 0.1f);
+        ImGui::ColorEdit3("Diffuse Color", &color[0], (ImGuiColorEditFlags)0.1f);
+        ImGui::ColorEdit3("Ambient Color", &ambientLight[0], (ImGuiColorEditFlags)0.1f);
+        ImGui::End();
 
-        // Check boundaries
-       
-        //if (m_position.x <= -.9f || m_position.x >= .7f) {
-        //    velocityX = -velocityX;  // Invert horizontal velocity
-        //}
+        //m_angle += 180 * dt;
+        //m_transform.rotation.z += 100 * dt;
 
-//        if (m_position.y <= -.9f || m_position.y >= .9f) {
-  //          velocityY = -velocityY;  // Invert vertical velocity
-    //    }
-         
-        //print position
-       // std::cout << "x: " << m_position.x << " y: " << m_position.y << std::endl;
+
+        m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? m_speed * -dt : 0;
+        m_transform.position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? m_speed * dt : 0;
+
+        m_transform.position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? m_speed * dt : 0;
+        m_transform.position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? m_speed * -dt : 0;
+
+        m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_O) ? m_speed * -dt : 0;
+        m_transform.position.z += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_I) ? m_speed * dt : 0;
+
         m_time += dt;
 
-        GLint uniform = glGetUniformLocation(m_program->m_program, "time");
-        glUniform1f(uniform, m_time);
+        auto material = m_model->GetMaterial();
+        material->ProcessGui();
+        material->Bind();        
+
+        //Model matrix
+        material->GetProgram()->SetUniform("model", m_transform.GetMatrix());
+
+        //View matrix
+        glm::mat4 view = glm::lookAt(glm::vec3{ 0, 0, 3 }, glm::vec3{ 0,0,0 }, glm::vec3{ 0,1,0 });
+        material->GetProgram()->SetUniform("view", view);
+
+        //Projection matrix
+        glm::mat4 projection = glm::perspective(glm::radians(70.0f), ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
+        material->GetProgram()->SetUniform("projection", projection);
+
+
+
+        //light position
+        material->GetProgram()->SetUniform("light.position", position);
+
+        //Diffuse light color
+        material->GetProgram()->SetUniform("light.color", color);
+
+        //Ambient light color
+        material->GetProgram()->SetUniform("ambientLight", ambientLight);
+
+
+        
+
+        ENGINE.GetSystem<Gui>()->EndFrame();
     }
 
     void World04::Draw(Renderer& renderer)
@@ -105,8 +91,9 @@ namespace nc
         renderer.BeginFrame();
 
         // render
-        glBindVertexArray(m_vao);
-        glDrawArrays(GL_QUADS, 0, 4);
+        //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        m_model->Draw(); 
+        ENGINE.GetSystem<Gui>()->Draw();
 
         // post-render
         renderer.EndFrame();

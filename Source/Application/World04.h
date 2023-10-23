@@ -1,7 +1,8 @@
 #pragma once
 #include "Framework/World.h"
-#include "Core/Math/Vector2.h"
 #include "Renderer/Renderer.h"
+#include "Core/Math/Transform.h"
+#include <vector>
 
 namespace nc
 {
@@ -9,9 +10,6 @@ namespace nc
 	{
 	public:
 		bool Initialize() override;
-		World04() {
-
-		};
 		void Shutdown() override;
 		void Update(float dt) override;
 		void Draw(Renderer& renderer) override;
@@ -19,14 +17,14 @@ namespace nc
 	private:
 		float m_angle = 0;
 		float m_time;
-		vec2 m_position;
-		int m_direction = 1;
+		float m_speed = 5;
 
-		float velocityX = 0;
-		float velocityY = 0;
+		glm::vec3 position{ 0, 8, 0 };
+		glm::vec3 color{ 1, 1, 1 };
+		glm::vec3 ambientLight{ 0.05f, 0.05f, 0.05f };
 
-		GLuint m_vao;
+		Transform m_transform;
+		res_t<Model> m_model;
 
-		res_t<Program> m_program;
 	};
 }
