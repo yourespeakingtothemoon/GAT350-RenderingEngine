@@ -12,8 +12,8 @@ namespace nc
         auto material = GET_RESOURCE(Material, "Materials/grid.mtrl");
         m_model = std::make_shared<Model>();
         m_model->SetMaterial(material);
-        //m_model->Load("Models/buddha.obj", glm::vec3{ 0 }, glm::vec3{ -90, 0, 0 });
-        m_model->Load("Models/teapot.obj");
+    
+        m_model->Load("Models/drachen.fbx");
 
         return true;
     }
@@ -33,6 +33,7 @@ namespace nc
         ImGui::End();
 
         ImGui::Begin("Light");
+        ImGui::CollapsingHeader("Light");
         ImGui::DragFloat3("Light Position", &position[0], 0.1f);
         ImGui::ColorEdit3("Diffuse Color", &color[0], (ImGuiColorEditFlags)0.1f);
         ImGui::ColorEdit3("Ambient Color", &ambientLight[0], (ImGuiColorEditFlags)0.1f);
