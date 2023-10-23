@@ -7,6 +7,9 @@
 
 namespace nc
 {
+   
+
+
     bool World04::Initialize()
     {
         auto material = GET_RESOURCE(Material, "Materials/grid.mtrl");
@@ -14,6 +17,14 @@ namespace nc
         m_model->SetMaterial(material);
     
         m_model->Load("Models/drachen.fbx");
+
+
+        m_light.type = light_s::lType::Point;
+        m_light.position = glm::vec3{ 0, 8, 0 };
+        m_light.direction = glm::vec3{ 0, 1, 0 };
+        m_light.color = glm::vec3{ 1, 1, 1 };
+        m_light.cutoff = glm::radians(30.0f);
+
 
         return true;
     }
@@ -33,9 +44,13 @@ namespace nc
         ImGui::End();
 
         ImGui::Begin("Light");
-        ImGui::CollapsingHeader("Light");
-        ImGui::DragFloat3("Light Position", &position[0], 0.1f);
-        ImGui::ColorEdit3("Diffuse Color", &color[0], (ImGuiColorEditFlags)0.1f);
+        const char* lightTypes[]{ "Point", "Directional", "Spotlight" };
+        ImGui::Combo("Light Type", (int*)&m_light.type, lightTypes, IM_ARRAYSIZE(lightTypes));
+
+       ImGui::DragFloat3("Light Position", &m_light.position[0], 0.1f);
+      ImGui::DragFloat3("Light Direction", &m_light.direction[0], 0.1f);
+        ImGui::DragFloat("Cutoff", &m_light.cutoff, (ImGuiColorEditFlags)0.1f);
+       ImGui::ColorEdit3("Diffuse Color", &m_light.color[0], (ImGuiColorEditFlags)0.1f);
         ImGui::ColorEdit3("Ambient Color", &ambientLight[0], (ImGuiColorEditFlags)0.1f);
         ImGui::End();
 
@@ -69,13 +84,22 @@ namespace nc
         glm::mat4 projection = glm::perspective(glm::radians(70.0f), ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
         material->GetProgram()->SetUniform("projection", projection);
 
+        //light type
+        material->GetProgram()->SetUniform("light.type", m_light.type);
 
+        //light cutoff
+        material->GetProgram()->SetUniform("light.cutoff", m_light.cutoff);
 
         //light position
-        material->GetProgram()->SetUniform("light.position", position);
+        material->GetProgram()->SetUniform("light.position", m_light.position);
 
+        //Light direction
+        material->GetProgram()->SetUniform("light.direction", m_light.direction);
+        
         //Diffuse light color
-        material->GetProgram()->SetUniform("light.color", color);
+        material->GetProgram()->SetUniform("light.color", m_light.color);
+
+
 
         //Ambient light color
         material->GetProgram()->SetUniform("ambientLight", ambientLight);

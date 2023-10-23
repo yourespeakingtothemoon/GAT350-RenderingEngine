@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 
 	//nc::MemoryTracker::Initialize();
 	nc::seedRandom((unsigned int)time(nullptr));
-	nc::setFilePath("assets");
+	nc::setFilePath("Assets");
 
 	ENGINE.Initialize();
 
