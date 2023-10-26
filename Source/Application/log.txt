@@ -1,3 +1,2 @@
 INFO: Factory.h(75) Class registered: Actor
 INFO: Main.cpp(15) Initialize Engine...
-ERROR: Factory.h(97) Class not found in Factory: ModelComponent
