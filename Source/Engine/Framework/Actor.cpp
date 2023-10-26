@@ -74,15 +74,19 @@ namespace nc
 
 	void Actor::ProcessGui()
 	{
+		ImGui::TextColored({ 0,1,1,1 }, "%s", GetClassName());
 		ImGui::Text("Name: %s", name.c_str());
 		ImGui::Text("Tag: %s", tag.c_str());
 		ImGui::Checkbox("Active", &active);
 		ImGui::Separator();
+		ImGui::TextColored({ 0,.2,1,1 }, "Transform");
+
 		transform.ProcessGui();
 
 		for (auto& component : components)
 		{
 			ImGui::Separator();
+			ImGui::TextColored({ 0,1,.2,1 }, "%s", GetClassName());
 			component->ProcessGui();
 		//	ImGui::Separator();
 		}

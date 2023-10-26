@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Framework/Components/CollisionComponent.h"
+#include "Framework/Components/LightComponent.h"
 
 namespace nc
 {
@@ -23,6 +24,54 @@ namespace nc
 
 	void Scene::Draw(Renderer& renderer)
 	{
+		//all of da lights
+		// get light components
+		std::vector<LightComponent*> lights;
+		for (auto& actor : m_actors)
+		{
+			//note: using continue is a bit more smooth looking than if statements
+			if (!actor->active) continue;
+			//extra bright I want yall to see this
+			auto component = actor->GetComponent<LightComponent>();
+			if (component)
+			{
+				lights.push_back(component);
+			}
+		}
+
+
+		// get all shader programs in the resource system
+		auto programs = ResourceManager::Instance().GetAllOfType<Program>();
+		// set all shader programs camera and lights uniforms
+		for (auto& program : programs)
+		{
+			program->Use();
+
+			// set lights in shader program
+			int index = 0;
+			for (auto light : lights)
+			{
+				std::string name = "lights[" + std::to_string(index++) + "]";
+
+
+
+				light->SetProgram(program, name);
+			}
+
+
+
+			program->SetUniform("numLights", index);
+			program->SetUniform("ambientLight", ambientLight);
+		}
+
+
+
+		for (auto& actor : m_actors)
+		{
+			if (actor->active) actor->Draw(renderer);
+		}
+
+
 		for (auto& actor : m_actors)
 		{
 			if (actor->active) actor->Draw(renderer);
@@ -83,6 +132,37 @@ namespace nc
 			}
 		}
 
+	}
+
+	void Scene::ProcessGui()
+	{
+		ImGui::Begin("Scene");
+		ImGui::ColorEdit3("Ambient", glm::value_ptr(ambientLight));
+		ImGui::Separator();
+
+
+
+		for (auto& actor : m_actors)
+		{
+			if (ImGui::Selectable(actor->name.c_str(), actor->guiSelect))
+			{
+				//all actor gui	false
+				std::for_each(m_actors.begin(), m_actors.end(), [](auto& a) { a->guiSelect = false; });
+				//selected actor gui	true
+				actor->guiSelect = true;
+			}
+		}
+		ImGui::End();
+
+
+
+		ImGui::Begin("Inspector");
+		auto iter = std::find_if(m_actors.begin(), m_actors.end(), [](auto& a) { return a->guiSelect; });
+		if (iter != m_actors.end())
+		{
+			(*iter)->ProcessGui();
+		}
+		ImGui::End();
 	}
 
 }
