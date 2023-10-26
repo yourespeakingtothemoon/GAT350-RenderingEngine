@@ -30,8 +30,11 @@ namespace nc
 
 	void ModelComponent::Draw(Renderer& renderer)
 	{
-		
+		auto material = model->GetMaterial();
+		material->Bind();
+		material->GetProgram()->SetUniform("model", m_owner->transform.GetMatrix());
 		model->Draw();
+		
 	}
 
 	void ModelComponent::Read(const json_t& value)

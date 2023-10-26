@@ -113,7 +113,7 @@ void main()
 
 	ocolor = vec4(ambientLight,1) * texcolor; 
 
-	for(int i =0; i < lights.length-1; i++)
+	for(int i =0; i < MAX_LIGHTS; i++)
 	{
 	vec3 diffuse;
 	vec3 specular;

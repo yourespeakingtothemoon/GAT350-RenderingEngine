@@ -79,14 +79,14 @@ namespace nc
 		ImGui::Text("Tag: %s", tag.c_str());
 		ImGui::Checkbox("Active", &active);
 		ImGui::Separator();
-		ImGui::TextColored({ 0,.2,1,1 }, "Transform");
+		ImGui::TextColored({ 0,0.2f,1,1 }, "Transform");
 
 		transform.ProcessGui();
 
 		for (auto& component : components)
 		{
 			ImGui::Separator();
-			ImGui::TextColored({ 0,1,.2,1 }, "%s", GetClassName());
+			ImGui::TextColored({ 0,1,0.2f,1 }, "%s", GetClassName());
 			component->ProcessGui();
 		//	ImGui::Separator();
 		}
