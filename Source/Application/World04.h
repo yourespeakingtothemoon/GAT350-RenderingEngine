@@ -8,24 +8,31 @@
 
 namespace nc
 {
-	struct light_s
-	{
-		enum lType
-		{
-			Point,
-			Directional,
-			Spotlight
-		};
-
-		lType type;
-		glm::vec3 position;
-		glm::vec3 direction;
-		glm::vec3 color;
-		float cutoff;
-
-	};
+	
 	class World04 : public World
 	{
+
+		struct light_s
+		{
+			enum lType
+			{
+				Point,
+				Directional,
+				Spotlight
+			};
+
+			lType type;
+			glm::vec3 position;
+			glm::vec3 direction;
+			glm::vec3 color;
+			float cutoff;
+			float innerCutoff;
+			float outerCutoff;
+			float intensity;
+			float range;
+
+		};
+
 	public:
 		bool Initialize() override;
 		void Shutdown() override;
@@ -37,7 +44,9 @@ namespace nc
 		float m_time;
 		float m_speed = 5;
 
-		light_s m_light;
+		//light_s m_light;
+		light_s m_lights[3];
+		int selectedLight = 0;
 		//glm::vec3 position{ 0, 8, 0 };
 		//glm::vec3 color{ 1, 1, 1 };
 		glm::vec3 ambientLight{ 0.05f, 0.05f, 0.05f };

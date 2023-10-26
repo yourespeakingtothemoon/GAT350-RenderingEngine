@@ -28,6 +28,9 @@
     <ClCompile Include="..\..\..\..\Downloads\GAT350-RenderingEngine-master(1)\GAT350-RenderingEngine-master\Source\Application\CheekyLittleDVDLogo.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="World05.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
@@ -43,6 +46,9 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Downloads\GAT350-RenderingEngine-master(1)\GAT350-RenderingEngine-master\Source\Application\CheekyLittleDVDLogo.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World05.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -84,6 +90,15 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\lit_multi_texture.prog">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\lit_multi_texture.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="Assets\Shaders\lit_multi_texture.frag">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>

@@ -61,7 +61,7 @@ namespace nc
 		ImGui::Begin("Material");
 		ImGui::ColorEdit3("diffuse", glm::value_ptr(diffuse));
 		ImGui::ColorEdit3("specular", glm::value_ptr(specular));
-		ImGui::DragFloat("shininess", &shininess, 0.1f, 2.0f, 200.0f);
+		ImGui::DragFloat("shininess", &shininess, 0.1f, 0.0f, 200.0f);
 		ImGui::DragFloat2("Tiling", glm::value_ptr(tiling), 0.1f);
 		ImGui::DragFloat2("Offset", glm::value_ptr(offset), 0.1f);
 		ImGui::End();
