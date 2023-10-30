@@ -38,6 +38,7 @@ namespace nc
 		READ_NAME_DATA(document, "albedoTexture", albedoTextureName);
 		if (!albedoTextureName.empty())
 		{
+			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture = GET_RESOURCE(Texture, albedoTextureName);
 		}
 			//specular
@@ -45,6 +46,7 @@ namespace nc
 		READ_NAME_DATA(document, "specularTexture", specularTextureName);
 		if (!specularTextureName.empty())
 		{
+			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture = GET_RESOURCE(Texture, specularTextureName);
 		}
 			//normal
@@ -52,6 +54,7 @@ namespace nc
 		READ_NAME_DATA(document, "normalTexture", normalTextureName);
 		if (!normalTextureName.empty())
 		{
+			params |= NORMAL_TEXTURE_MASK;
 			normalTexture = GET_RESOURCE(Texture, normalTextureName);
 		}
 			//emissive
@@ -59,6 +62,7 @@ namespace nc
 		READ_NAME_DATA(document, "emissiveTexture", emissiveTextureName);
 		if (!emissiveTextureName.empty())
 		{
+			params |= EMISSIVE_TEXTURE_MASK;
 			emissiveTexture = GET_RESOURCE(Texture, emissiveTextureName);
 		}
 			
