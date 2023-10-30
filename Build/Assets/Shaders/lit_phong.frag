@@ -6,6 +6,11 @@
 
 #define MAX_LIGHTS 3
 
+#define ALBEDO_TEXTURE_MASK		(1 << 0) //0001
+#define SPECULAR_TEXTURE_MASK	(1 << 1) //0010
+#define NORMAL_TEXTURE_MASK		(1 << 2) //0100
+#define EMISSIVE_TEXTURE_MASK	(1 << 3) //1000
+
 in layout(location = 0) vec3 fposition;
 in layout(location = 1) vec2 ftexcoord;
 in layout(location = 2) vec3 fnormal;
@@ -22,6 +27,8 @@ uniform float time;
 //imgui editable variables
 uniform struct Material
 {
+
+	uint params;
 	vec3 albedo;
 	vec3 specular;
 	vec3 emissive;
@@ -112,15 +119,15 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
 void main()
 {
 
-vec4 albedoColor = vec4(material.albedo,1);
-vec4 specularColor = vec4(material.specular,1);
-vec4 emissiveColor = vec4(material.emissive,1);
+vec4 albedoColor = texture(albedoTexture, ftexcoord);
+vec4 specularColor = texture(specularTexture, ftexcoord);
+vec4 emissiveColor = texture(emissiveTexture, ftexcoord);
 
 //modulate texcolor by light
 	vec4 texcolor = texture(albedoTexture, ftexcoord);
 	
 
-	ocolor = vec4(ambientLight,1) * texcolor; 
+	ocolor = vec4(ambientLight,1) * albedoColor + emissiveColor; 
 
 	for(int i =0; i < MAX_LIGHTS; i++)
 	{

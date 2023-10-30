@@ -14,6 +14,7 @@ uniform mat4 projection;
 
 uniform struct Material
 {
+	uint params;
 	vec3 albedo;
 	vec3 specular;
 	vec3 emissive;

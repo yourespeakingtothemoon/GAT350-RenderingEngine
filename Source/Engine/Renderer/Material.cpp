@@ -86,6 +86,26 @@ namespace nc
 		m_program->SetUniform("material.tiling", tiling);
 		m_program->SetUniform("material.offset", offset);
 
+		if (albedoTexture)
+		{
+			albedoTexture->SetActive(GL_TEXTURE0);
+			albedoTexture->Bind();
+		}
+		if (specularTexture)
+		{
+			specularTexture->SetActive(GL_TEXTURE1);
+			specularTexture->Bind();
+		}
+		if (normalTexture)
+		{
+			normalTexture->SetActive(GL_TEXTURE2);
+			normalTexture->Bind();
+		}
+		if (emissiveTexture)
+		{
+			emissiveTexture->SetActive(GL_TEXTURE3);
+			emissiveTexture->Bind();
+		}
 		
 	}
 	void Material::ProcessGui()
