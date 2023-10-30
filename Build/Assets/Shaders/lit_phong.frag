@@ -119,9 +119,10 @@ void phong(in Light light, in vec3 position, in vec3 normal, out vec3 diffuse, o
 void main()
 {
 
-vec4 albedoColor = texture(albedoTexture, ftexcoord);
-vec4 specularColor = texture(specularTexture, ftexcoord);
-vec4 emissiveColor = texture(emissiveTexture, ftexcoord);
+vec4 albedoColor = bool(material.params & ALBEDO_TEXTURE_MASK) ? texture(albedoTexture, ftexcoord) : vec4(material.albedo,1);
+vec4 specularColor = bool(material.params & SPECULAR_TEXTURE_MASK) ? texture(specularTexture, ftexcoord) : vec4(material.specular,1);
+vec4 emissiveColor = bool(material.params & EMISSIVE_TEXTURE_MASK) ? texture(emissiveTexture, ftexcoord) : vec4(material.emissive,1);
+
 
 //modulate texcolor by light
 	vec4 texcolor = texture(albedoTexture, ftexcoord);
