@@ -56,56 +56,17 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Build\Assets\Shaders\unlit_color.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_color.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_color.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.frag">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\lit_multi_texture.prog">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\lit_multi_texture.vert">
-      <Filter>Shaders</Filter>
-    </None>
-    <None Include="Assets\Shaders\lit_multi_texture.frag">
-      <Filter>Shaders</Filter>
-    </None>
     <None Include="Assets\Scenes\scene.json">
       <Filter>Scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.prog">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.frag">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

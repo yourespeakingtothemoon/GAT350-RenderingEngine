@@ -176,23 +176,10 @@
     <ClInclude Include="World05.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.frag" />
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.prog" />
-    <None Include="..\..\Build\Assets\Shaders\lit_texture.vert" />
-    <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.frag" />
-    <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.vert" />
-    <None Include="..\..\Build\Assets\Shaders\unlit_color.frag" />
-    <None Include="..\..\Build\Assets\Shaders\unlit_color.prog" />
-    <None Include="..\..\Build\Assets\Shaders\unlit_color.vert" />
-    <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.frag" />
-    <None Include="..\..\Build\Assets\Shaders\unlit_multi_texture.prog" />
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.frag" />
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.prog" />
-    <None Include="..\..\Build\Assets\Shaders\unlit_texture.vert" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.frag" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.prog" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong.vert" />
     <None Include="Assets\Scenes\scene.json" />
-    <None Include="Assets\Shaders\lit_multi_texture.frag" />
-    <None Include="Assets\Shaders\lit_multi_texture.prog" />
-    <None Include="Assets\Shaders\lit_multi_texture.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
