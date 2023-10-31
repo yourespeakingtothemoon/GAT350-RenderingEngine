@@ -12,6 +12,11 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
+	
+
+
+
+
 	INFO_LOG("Initialize Engine...")
 
 	//nc::MemoryTracker::Initialize();
