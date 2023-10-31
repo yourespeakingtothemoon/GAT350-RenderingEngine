@@ -179,6 +179,9 @@
     <None Include="..\..\Build\Assets\Shaders\lit_phong.frag" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong.prog" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong.vert" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.frag" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.prog" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.vert" />
     <None Include="Assets\Scenes\scene.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
