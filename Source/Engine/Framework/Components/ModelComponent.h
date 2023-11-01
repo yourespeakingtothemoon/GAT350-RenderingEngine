@@ -20,5 +20,7 @@ namespace nc
 		std::string modelName;
 		std::string materialName;
 		res_t<Model> model;
+		bool enableDepth;
+		GLint cullface{ GL_BACK };
 	};
 }
