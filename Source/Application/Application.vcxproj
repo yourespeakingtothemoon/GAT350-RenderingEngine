@@ -183,6 +183,10 @@
     <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.frag" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.prog" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.vert" />
+    <None Include="..\..\Build\Assets\Shaders\reflection.prog" />
+    <None Include="..\..\Build\Assets\Shaders\reflection.vert" />
+    <None Include="..\..\Build\Assets\Shaders\refraction.prog" />
+    <None Include="..\..\Build\Assets\Shaders\refraction.vert" />
     <None Include="..\..\Build\Assets\Shaders\skybox.prog" />
     <None Include="..\..\Build\Assets\Shaders\skybox.vert" />
     <None Include="Assets\Scenes\scene.json" />
