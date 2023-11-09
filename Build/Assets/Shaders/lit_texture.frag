@@ -5,16 +5,14 @@
 #define SPOT 2
 
 in layout(location = 0) vec3 fposition;
-in layout(location = 1) vec2 ftexcoord;
-in layout(location = 2) vec3 fnormal;
+in layout(location = 1) vec3 fnormal;
+in layout(location = 2) vec2 ftexcoord;
 
 out layout(location = 0) vec4 ocolor;
+//out layout(location = 1) vec2 otexcoord;
 
 layout(binding = 0) uniform sampler2D tex;
 
-uniform float time;
-
-//imgui editable variables
 uniform struct Material
 {
 	vec3 diffuse;
@@ -25,61 +23,65 @@ uniform struct Material
 	vec2 tiling;
 } material;
 
-
 uniform struct Light
 {
 	int type;
 	vec3 position;
 	vec3 direction;
 	vec3 color;
-	float cutoff;
+	float intensity;
+	float range;
+	float innerAngle;
+	float outerAngle;
 } light;
 
-uniform vec3 ambientLight;
+	uniform vec3 ambientLight;
 
-vec3 ads( vec3 position, vec3 normal)
+vec3 ads(in vec3 position, in vec3 normal)
 {
-//Lighting
-	//Ambient - constant color 
+	//AMBIENT
 	vec3 ambient = ambientLight;
-	//Diffuse
-		//get light direciton by normalizing the light position - the position of the object
-	vec3 lightDir = (light.type == DIRECTIONAL) ? normalize(light.direction) : (light.position - position);
-		//get light intensity factor by getting the dot product of the light direction and the surface normal and then maximizing
-	float spotIntensity =1;
+
+	//ATTENUATION
+	float attenuation = 1;
+	if(light.type != DIRECTIONAL){
+		float distanceSqr = dot(light.position - position, light.position - position);
+		float rangeSqr = light.range * light.range;
+		attenuation = max(0, 1 - pow((distanceSqr / rangeSqr), 2.0));
+		attenuation = pow(attenuation, 2.0);
+
+	}
+
+	//DIFFUSE
+	vec3 lightDir = (light.type == DIRECTIONAL) ? normalize(-light.direction) : normalize(light.position - position.xyz);
+
+	float spotIntensity = 1;
 	if(light.type == SPOT)
 	{
-	float cosine = acos(dot(light.direction, -lightDir));
-	if(cosine > light.cutoff){ spotIntensity = 0; } else{ spotIntensity = pow(cos(cosine), light.cutoff);}
-	//spotIntensity = dot(normalize(light.direction), -lightDir);
+		float angle = acos(dot(light.direction, -lightDir));
+		//if (angle > light.innerAngle) spotIntensity = 0;
+		spotIntensity = smoothstep(light.outerAngle + 0.001, light.innerAngle, angle);
 	}
 
+	float intensity = max(dot(lightDir, normal), 0) * spotIntensity;
+	vec3 diffuse = material.diffuse * (light.color * intensity);
 
-	float intensity = max(dot(lightDir, normal), 0);
-		//take the material diffuse value and multiply it by our color and calculated intensity
-	vec3 diffuse = material.diffuse * (light.color * intensity * spotIntensity);
-	//Specular
+	//SPECULAR
 	vec3 specular = vec3(0);
-	if(intensity > 0)
+	if(intensity > 0) 
 	{
-		//reflection vector found by reflecting the light direction and the surface normal
 		vec3 reflection = reflect(-lightDir, normal);
-		//view direction (specular lighting is view depenant) found by normalizing the position of the object
 		vec3 viewDir = normalize(-position);
-		//specular intensity is found by maximizing the dot product of previously found specular variables
 		intensity = max(dot(reflection, viewDir), 0);
-		//adjust the intensity with the shininess factor
 		intensity = pow(intensity, material.shininess);
-		//calculate final light
-		specular = material.specular * intensity;
+		specular = material.specular * intensity  * spotIntensity;
 	}
-	//return all lighting elements
-	return ambient + diffuse + specular;
-};
+
+	return ambient + (diffuse + specular) * light.intensity * attenuation;
+}
 
 void main()
 {
-//modulate texcolor by light
 	vec4 texcolor = texture(tex, ftexcoord);
 	ocolor = texcolor * vec4(ads(fposition, fnormal), 1);
 }

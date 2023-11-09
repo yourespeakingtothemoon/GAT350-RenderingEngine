@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include "Core/Math/Vector2.h"
 #include <glm/glm/glm.hpp>
 
 namespace nc

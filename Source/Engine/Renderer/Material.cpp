@@ -23,68 +23,39 @@ namespace nc
 		// get program resource
 		m_program = GET_RESOURCE(Program, program);
 
-		// read the textures name
-		std::vector<std::string> textures;
-		READ_DATA(document, textures);
-		for (auto texture : textures)
-		{
-			// get texture resource
-			m_textures.push_back(GET_RESOURCE(Texture, texture));
-		}
-
-
-		//read textures
-			//albedo
+		// read the textures
 		std::string albedoTextureName;
-		READ_NAME_DATA(document, "albedoTexture", albedoTextureName);
-		if (!albedoTextureName.empty())
-		{
+		if (READ_NAME_DATA(document, "albedoTexture", albedoTextureName)) {
 			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture = GET_RESOURCE(Texture, albedoTextureName);
 		}
-			//specular
+
 		std::string specularTextureName;
-		READ_NAME_DATA(document, "specularTexture", specularTextureName);
-		if (!specularTextureName.empty())
-		{
+		if (READ_NAME_DATA(document, "specularTexture", specularTextureName)) {
 			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture = GET_RESOURCE(Texture, specularTextureName);
 		}
-			//normal
-		std::string normalTextureName;
-		READ_NAME_DATA(document, "normalTexture", normalTextureName);
-		if (!normalTextureName.empty())
-		{
-			params |= NORMAL_TEXTURE_MASK;
-			normalTexture = GET_RESOURCE(Texture, normalTextureName);
-		}
-			//emissive
+
 		std::string emissiveTextureName;
-		READ_NAME_DATA(document, "emissiveTexture", emissiveTextureName);
-		if (!emissiveTextureName.empty())
-		{
+		if (READ_NAME_DATA(document, "emissiveTexture", emissiveTextureName)) {
 			params |= EMISSIVE_TEXTURE_MASK;
 			emissiveTexture = GET_RESOURCE(Texture, emissiveTextureName);
 		}
-		//cubemap
+
+		std::string normalTextureName;
+		if (READ_NAME_DATA(document, "normalTexture", normalTextureName)) {
+			params |= NORMAL_TEXTURE_MASK;
+			normalTexture = GET_RESOURCE(Texture, normalTextureName);
+		}
+
 		std::string cubemapName;
-		READ_NAME_DATA(document, "cubemap", cubemapName);
-		if (!cubemapName.empty())
-		{
-			params |= CUBEMAP_TEXTURE_MASK;
+		if (READ_NAME_DATA(document, "cubemap", cubemapName)) {
+			params |= NORMAL_TEXTURE_MASK;
 			std::vector<std::string> cubemaps;
 			READ_DATA(document, cubemaps);
 
-			cubemapTexture = GET_RESOURCE(Texture, cubemapName, cubemaps);
+			cubemapTexture = GET_RESOURCE(Cubemap, cubemapName, cubemaps);
 		}
-
-		
-
-
-
-			
-
-
 
 		READ_DATA(document, albedo);
 		READ_DATA(document, specular);
@@ -93,14 +64,15 @@ namespace nc
 		READ_DATA(document, tiling);
 		READ_DATA(document, offset);
 
+
 		return true;
 	}
 
 	void Material::Bind()
 	{
 		m_program->Use();
-
 		m_program->SetUniform("material.params", params);
+
 		m_program->SetUniform("material.albedo", albedo);
 		m_program->SetUniform("material.specular", specular);
 		m_program->SetUniform("material.emissive", emissive);
@@ -110,33 +82,45 @@ namespace nc
 
 		if (albedoTexture)
 		{
+			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture->SetActive(GL_TEXTURE0);
 			albedoTexture->Bind();
 		}
+
 		if (specularTexture)
 		{
+			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture->SetActive(GL_TEXTURE1);
 			specularTexture->Bind();
 		}
+
 		if (normalTexture)
 		{
+			params |= NORMAL_TEXTURE_MASK;
 			normalTexture->SetActive(GL_TEXTURE2);
 			normalTexture->Bind();
 		}
+
 		if (emissiveTexture)
 		{
+			params |= EMISSIVE_TEXTURE_MASK;
 			emissiveTexture->SetActive(GL_TEXTURE3);
 			emissiveTexture->Bind();
 		}
-		
+
+		if (cubemapTexture)
+		{
+			cubemapTexture->SetActive(GL_TEXTURE4);
+			cubemapTexture->Bind();
+		}
 	}
 	void Material::ProcessGui()
 	{
 		ImGui::Begin("Material");
-		ImGui::ColorEdit3("albedo", glm::value_ptr(albedo));
-		ImGui::ColorEdit3("specular", glm::value_ptr(specular));
-		ImGui::ColorEdit3("emissive", glm::value_ptr(emissive));
-		ImGui::DragFloat("shininess", &shininess, 0.1f, 0.0f, 200.0f);
+		ImGui::ColorEdit3("Albedo", glm::value_ptr(albedo));
+		ImGui::ColorEdit3("Specular", glm::value_ptr(specular));
+		ImGui::ColorEdit3("Emissive", glm::value_ptr(emissive));
+		ImGui::DragFloat("Shininess", &shininess, 0.1f, 2.0f, 200.0f);
 		ImGui::DragFloat2("Tiling", glm::value_ptr(tiling), 0.1f);
 		ImGui::DragFloat2("Offset", glm::value_ptr(offset), 0.1f);
 		ImGui::End();

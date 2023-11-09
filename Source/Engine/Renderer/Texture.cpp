@@ -2,7 +2,7 @@
 #include "Renderer.h"
 #include "Core/Logger.h"
 #define STB_IMAGE_IMPLEMENTATION
-#include <../ThirdParty/stb/stb_image.h>
+#include <STB/stb_image.h>
 
 namespace nc
 {
@@ -24,12 +24,51 @@ namespace nc
 		return Load(filename, renderer);
 	}
 
+	bool Texture::CreateTexture(int width, int height)
+	{
+		m_target = GL_TEXTURE_2D;
+		m_size = glm::vec2{ width, height };
+
+		glGenTextures(1, &m_texture);
+		glBindTexture(m_target, m_texture);
+
+		// create texture (width, height)
+		glTexImage2D(m_target, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+		// set texture parameters
+		glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		return true;
+	}
+
+
+
+	bool Texture::CreateDepthTexture(int width, int height)
+	{
+		m_target = GL_TEXTURE_2D;
+		m_size = glm::vec2{ width, height };
+
+
+
+		glGenTextures(1, &m_texture);
+		glBindTexture(m_target, m_texture);
+
+
+
+		// create texture (width, height)
+		glTexImage2D(m_target, 0, GL_DEPTH_COMPONENT, width, height, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
+
+
+
+		return true;
+	}
+
 	bool Texture::Load(const std::string& filename, Renderer& renderer)
 	{
 		int channels = 0;
 
 		stbi_set_flip_vertically_on_load(true);
-
 		unsigned char* data = stbi_load(filename.c_str(), &m_size.x, &m_size.y, &channels, 0);
 
 		if (!data)
@@ -53,8 +92,12 @@ namespace nc
 		glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+
+
 		stbi_image_free(data);
 
 		return true;
 	}
+
+
 }

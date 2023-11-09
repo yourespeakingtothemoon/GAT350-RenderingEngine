@@ -1,8 +1,9 @@
 {
-  "program": "Shaders/lit_phong.prog",
-  "albedoTexture": [ "Textures/color_grid.png" ],
+  "program": "shaders/lit_phong.prog",
+  "albedoTexture": "textures/lava_diffuse.bmp",
+  "specularTexture": "textures/lava_specular.bmp",
+  "emissiveTexture": "textures/lava_emissive.bmp",
   "albedo": [
-    1,
     1,
     1,
     1
@@ -12,12 +13,12 @@
     0.4,
     0.4
   ],
-  "emissive":[
-    0,
-    0,
-    0
+  "emissive": [
+    0.0,
+    0.0,
+    0.0
   ],
-  "shininess":2,
+  "shininess": 2,
   "tiling": [ 1, 1 ],
   "offset": [ 0, 0 ]
 }

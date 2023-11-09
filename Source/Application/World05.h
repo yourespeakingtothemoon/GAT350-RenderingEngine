@@ -4,15 +4,11 @@
 #include "Core/Math/Transform.h"
 #include <vector>
 
-
-
 namespace nc
 {
-	
+
 	class World05 : public World
 	{
-		
-
 	public:
 		bool Initialize() override;
 		void Shutdown() override;
@@ -20,18 +16,10 @@ namespace nc
 		void Draw(Renderer& renderer) override;
 
 	private:
-		float m_angle = 0;
 		float m_time;
 		float m_speed = 5;
 
-		//light_s m_light;
-	
-		//glm::vec3 position{ 0, 8, 0 };
-		//glm::vec3 color{ 1, 1, 1 };
-		glm::vec3 ambientLight{ 0.05f, 0.05f, 0.05f };
-
-		//Transform m_transform;
-		//res_t<Model> m_model;
-
+		float m_refraction{ 1 };
+		glm::vec3 m_lightAmbient = { 0.0f, 0.0f, 0.0f };
 	};
 }

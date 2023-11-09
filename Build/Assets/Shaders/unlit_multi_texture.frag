@@ -12,14 +12,12 @@ uniform vec2 tiling;
 layout(binding = 0) uniform sampler2D tex1;
 layout(binding = 1) uniform sampler2D tex2;
 
-uniform float time;
-
 void main()
 {
-	vec4 texcolor1 = texture(tex1, (texcoord + offset) * tiling );
-	vec4 texcolor2 = texture(tex2, (texcoord + offset) * tiling );
+	vec4 texcolor1 = texture(tex1, (texcoord * tiling) + offset);
+	vec4 texcolor2 = texture(tex2, (texcoord * tiling) + offset);
 
-	vec4 texcolor = mix(texcolor1, texcolor2, 0.2);
-
+	vec4 texcolor = mix(texcolor1, texcolor2, .5);
+	//if (texcolor.a < 0.8) discard;
 	ocolor = texcolor * color;
 }

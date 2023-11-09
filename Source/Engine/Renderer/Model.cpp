@@ -10,8 +10,6 @@ namespace nc
 {
 	bool Model::Create(std::string filename, ...)
 	{
-		// TODO load json model file
-
 		return Load(filename);
 	}
 
@@ -28,7 +26,7 @@ namespace nc
 
 		glm::mat4 mt = glm::translate(translate);
 		glm::mat4 mr = glm::eulerAngleYXZ(glm::radians(rotation.y), glm::radians(rotation.x), glm::radians(rotation.z));
-		glm::mat4 ms = glm::translate(scale);
+		glm::mat4 ms = glm::scale(scale);
 
 		glm::mat4 mx = mt * mr * ms;
 
@@ -39,7 +37,9 @@ namespace nc
 
 	void Model::Draw(GLenum primitive)
 	{
-		m_material->Bind();
+		//<bind material>
+		//m_material->Bind();
+		//<draw the vertex buffer passing in the primitive>
 		m_vertexBuffer->Draw(primitive);
 	}
 
@@ -67,12 +67,12 @@ namespace nc
 		{
 			vertex_t vertex;
 
-			vertex.position = transform * glm::vec4(glm::vec3{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z },0);
-			vertex.normal = glm::normalize(transform * glm::vec4(glm::vec3{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z }, 0));
+			vertex.position = transform * glm::vec4{ glm::vec3{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z }, 1 };
+			vertex.normal = glm::normalize(transform * glm::vec4{ glm::vec3{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z },0 });
 
 			if (mesh->mTangents)
 			{
-				vertex.tangent = glm::normalize(transform * glm::vec4(glm::vec3{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z }, 0));
+				vertex.tangent = glm::normalize(transform * glm::vec4{ glm::vec3{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z },0 });
 			}
 			else
 			{

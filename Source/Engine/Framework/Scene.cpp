@@ -1,6 +1,5 @@
 #include "Scene.h"
-#include "Framework/Components/CollisionComponent.h"
-#include "Framework/Components/LightComponent.h"
+#include "Framework.h"
 
 namespace nc
 {
@@ -24,21 +23,19 @@ namespace nc
 
 	void Scene::Draw(Renderer& renderer)
 	{
-		//all of da lights
+
 		// get light components
 		std::vector<LightComponent*> lights;
 		for (auto& actor : m_actors)
 		{
-			//note: using continue is a bit more smooth looking than if statements
 			if (!actor->active) continue;
-			//extra bright I want yall to see this
+
 			auto component = actor->GetComponent<LightComponent>();
 			if (component)
 			{
 				lights.push_back(component);
 			}
 		}
-
 
 		// get all shader programs in the resource system
 		auto programs = ResourceManager::Instance().GetAllOfType<Program>();
@@ -53,26 +50,41 @@ namespace nc
 			{
 				std::string name = "lights[" + std::to_string(index++) + "]";
 
-
-
 				light->SetProgram(program, name);
 			}
 
-
-
 			program->SetUniform("numLights", index);
-			program->SetUniform("ambientLight", ambientLight);
+			program->SetUniform("ambientLight", ambientColor);
 		}
 
 
+		// get camera component
+		CameraComponent* camera = nullptr;
+		for (auto& actor : m_actors)
+		{
+			if (!actor->active) continue;
+
+			camera = actor->GetComponent<CameraComponent>();
+			if (camera) {
+				break;
+			}
+		}
+
+		// get all shader programs in the resource system
+		//programs = ResourceManager::Instance().GetAllOfType<Program>();
+		// set all shader programs camera and lights uniforms
+		for (auto& program : programs)
+		{
+			program->Use();
+
+			// set camera in shader program
+			if (camera) camera->SetProgram(program);
+		}
 
 		for (auto& actor : m_actors)
 		{
 			if (actor->active) actor->Draw(renderer);
 		}
-
-
-	
 	}
 
 	void Scene::Add(std::unique_ptr<Actor> actor)
@@ -134,7 +146,7 @@ namespace nc
 	void Scene::ProcessGui()
 	{
 		ImGui::Begin("Scene");
-		ImGui::ColorEdit3("Ambient", glm::value_ptr(ambientLight));
+		ImGui::ColorEdit3("Ambient", glm::value_ptr(ambientColor));
 		ImGui::Separator();
 
 
@@ -143,9 +155,9 @@ namespace nc
 		{
 			if (ImGui::Selectable(actor->name.c_str(), actor->guiSelect))
 			{
-				//all actor gui	false
+				//set all actors gui to false
 				std::for_each(m_actors.begin(), m_actors.end(), [](auto& a) { a->guiSelect = false; });
-				//selected actor gui	true
+				//set selected actor gui to true
 				actor->guiSelect = true;
 			}
 		}

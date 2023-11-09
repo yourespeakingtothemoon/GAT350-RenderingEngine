@@ -1,0 +1,90 @@
+{
+	"actors": [
+		{
+			"type": "Actor",
+			"name": "maincamera",
+			"persistent": true,
+			"active": true,
+			"prototype": false,
+			"transform": {
+				"position": [ 0, 0, 14 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 180, 0 ]
+			},
+			"components": [
+				{
+					"type": "CameraComponent",
+					"FOV": 70.0,
+					"AspectRatio": 1.77,
+					"Near": 0.1,
+					"Far": 100
+				},
+				{
+					"type": "CameraController",
+					"speed": 5,
+					"sensitivity": 0.5
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "light",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 3, 3, 3 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "LightComponent",
+					"lightType": "directional",
+					"color": [ 1, 1, 1 ],
+					"intensity": 10
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "lucy the dragon",
+			"persistent": true,
+			"active": true,
+			"transform": {
+				"position": [ 0, 0, 1 ],
+				"scale": [ 1, 1, 1 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/drachen.fbx",
+					"materialName": "materials/reflection.mtrl"
+				},
+				{
+					"type": "RotateComponent",
+					"EulerAngle": [ 45, -45, 0 ]
+				}
+			]
+		},
+		{
+			"type": "Actor",
+			"name": "cube",
+			"persistent": true,
+			"active": true,
+			"prototype": false,
+			"transform": {
+				"position": [ 10, 0, 0 ],
+				"scale": [ 10, 10, 10 ],
+				"rotation": [ 0, 0, 0 ]
+			},
+			"components": [
+				{
+					"type": "ModelComponent",
+					"modelName": "models/cube.obj",
+					"materialName": "materials/phong.mtrl"
+				}
+			]
+		}
+	]
+}

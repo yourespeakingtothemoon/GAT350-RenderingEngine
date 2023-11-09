@@ -160,7 +160,6 @@ namespace nc
 		return true;
 	}
 
-
 	bool Json::Read(const rapidjson::Value& value, const std::string& name, Rect& data, bool required)
 	{
 		// check if 'name' member exists and is an array with 2 elements

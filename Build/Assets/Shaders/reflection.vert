@@ -9,26 +9,25 @@ uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
-vec3 vreflect(vec3 i,vec3 n)
+vec3 vreflect(vec3 i, vec3 n)
 {
- 
-return i- (n*dot(n,i)) *2;
-
+	return i-(n*dot(n,i))*2;
 }
 
 void main()
 {
-//transform vertex position/normal to world space
-vec3 position = vec3(model * vec4(vposition,1));
-vec3 normal = vec3(mat3(model) * vnormal);
+	//transform vertex position/normal to world space
+	vec3 position = vec3(model * vec4(vposition, 1));
+	vec3 normal = normalize(mat3(model) * vnormal);
 
-vec3 viewPosition = inverse(view)[3].xyz;
+	//inverse of view space -> world space
+	//last column of mat4 is position
+	vec3 viewPosition = inverse(view)[3].xyz;
+	vec3 viewDir = normalize(position - viewPosition);
 
-vec3 viewDirection = normalize(position - viewPosition);
+	//reflect view direaction about vertex normal
+	otexcoord = vreflect(viewDir, normal);
 
-otexcoord = vreflect(viewDirection, normal);
-
-
-mat4 mvp = projection * view * model;
-gl_Position = mvp * vec4(vposition, 1.0);
+	mat4 mvp = projection * view * model;
+	gl_Position = mvp * vec4(vposition, 1.0);
 }

@@ -5,18 +5,18 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source\IMGUI">
-      <UniqueIdentifier>{882cd30b-541a-46de-bb90-977d86258b0a}</UniqueIdentifier>
+    <Filter Include="Source\imGui">
+      <UniqueIdentifier>{e12e6353-301f-4029-8e4d-ffed2fe77a7b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Font.cpp">
+    <ClCompile Include="Model.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Text.cpp">
+    <ClCompile Include="Font.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
@@ -25,35 +25,35 @@
     <ClCompile Include="..\..\ThirdParty\glad\src\glad.c">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Program.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\ThirdParty\imgui\Gui.cpp">
+    <ClCompile Include="Program.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Gui.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui\imgui.cpp">
-      <Filter>Source\IMGUI</Filter>
+      <Filter>Source\imGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui\imgui_draw.cpp">
-      <Filter>Source\IMGUI</Filter>
+      <Filter>Source\imGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui\imgui_impl_opengl3.cpp">
-      <Filter>Source\IMGUI</Filter>
+      <Filter>Source\imGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui\imgui_impl_sdl.cpp">
-      <Filter>Source\IMGUI</Filter>
+      <Filter>Source\imGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui\imgui_impl_sdlrenderer.cpp">
-      <Filter>Source\IMGUI</Filter>
+      <Filter>Source\imGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui\imgui_tables.cpp">
-      <Filter>Source\IMGUI</Filter>
+      <Filter>Source\imGui</Filter>
     </ClCompile>
     <ClCompile Include="..\..\ThirdParty\imgui\imgui_widgets.cpp">
-      <Filter>Source\IMGUI</Filter>
+      <Filter>Source\imGui</Filter>
     </ClCompile>
     <ClCompile Include="VertexBuffer.cpp">
       <Filter>Source</Filter>
@@ -61,10 +61,10 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Model.cpp">
+    <ClCompile Include="Cubemap.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Cubemap.cpp">
+    <ClCompile Include="Framebuffer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,22 +72,22 @@
     <ClInclude Include="Renderer.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Font.h">
+    <ClInclude Include="Model.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Text.h">
+    <ClInclude Include="Font.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Program.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ThirdParty\imgui\Gui.h">
+    <ClInclude Include="Program.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Gui.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="VertexBuffer.h">
@@ -96,10 +96,10 @@
     <ClInclude Include="Material.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Model.h">
+    <ClInclude Include="Cubemap.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="Cubemap.h">
+    <ClInclude Include="Framebuffer.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>

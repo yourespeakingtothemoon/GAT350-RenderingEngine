@@ -22,8 +22,6 @@ namespace nc
 		bool Load(const std::string& filename);
 		void Read(const json_t& value);
 
-		void ProcessGui();
-
 		template<typename T>
 		T* GetActor();
 		template<typename T = Actor>
@@ -31,15 +29,16 @@ namespace nc
 
 		void SetGame(World* game) { m_game = game; }
 
+		void ProcessGui();
+
 		friend class Actor;
 
 	public:
-		glm::vec3 ambientLight{ 0.05f, 0.05f, 0.05f };
+		glm::vec3 ambientColor{ 0.2f };
 
 	private:
 		World* m_game = nullptr;
 		std::list<std::unique_ptr<Actor>> m_actors;
-	
 	};
 
 	template<typename T>

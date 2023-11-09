@@ -11,11 +11,9 @@ uniform vec2 tiling;
 
 layout(binding = 0) uniform sampler2D tex;
 
-uniform float time;
-
 void main()
 {
-	vec4 texcolor = texture(tex, (texcoord + offset) * tiling );
-	//if(texcolor.a < 0.8) discard;
+	vec4 texcolor = texture(tex, (texcoord * tiling) + offset);
+	//if (texcolor.a < 0.8) discard;
 	ocolor = texcolor * color;
 }

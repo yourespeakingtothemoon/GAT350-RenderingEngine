@@ -1,45 +1,16 @@
 #pragma once
-
 #include <string>
-#include <vector>
-#include <map>
-#include <iostream>
-
+#include <ctype.h>
 
 namespace nc {
+	class StringUtils {
 
-	static unsigned int signifier = 0;
+	public:
+		std::string static ToUpper(const std::string& s);
+		std::string static ToLower(const std::string& s);
+		bool static IsEqualIgnoreCase(const std::string& s1, const std::string& s2);
+		std::string static CreateUnique(const std::string& s);
 
-	std::string ToUpper(std::string in)
-	{
-		for(int i = 0; i < in.size(); i++)
-		{
-			in[i] = toupper(in[i]);
-		}
-	return in;
-	}
-
-	std::string ToLower(std::string in)
-	{
-		for (int i = 0; i < in.size(); i++)
-		{
-			in[i] = tolower(in[i]);
-		}
-
-	return in;
-	}
-
-	bool IsEqualIgnoreCase(std::string a, std::string b)
-	{
-		return (ToLower(a) == ToLower(b));
-	}
-
-	std::string MakeUnique(std::string in)
-	{
-		signifier++;
-	return in + std::to_string(signifier);
-
-
-	}
-
+	public:
+	};
 }
