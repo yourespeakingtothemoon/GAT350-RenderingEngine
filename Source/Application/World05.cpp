@@ -11,10 +11,10 @@ namespace nc
 {
     bool World05::Initialize()
     {
+       
         m_scene = std::make_unique<Scene>();
         m_scene->Load("Scenes/scene.json");
         m_scene->Initialize();
-
         /* {
             auto actor = CREATE_CLASS(Actor);
             actor->name = "actor1";
@@ -74,7 +74,7 @@ namespace nc
         }
         for (int i = 0; i < 1000; i++) {
             auto actor = CREATE_CLASS_BASE(Actor, "tree");
-            actor->name = StringUtils::CreateUnique("tree");
+            actor->name = ncString::MakeUnique("tree");
             actor->transform.position = glm::vec3{ randomf(-10,10), 0, randomf(-10,10) };
             actor->transform.scale = glm::vec3{ randomf(0.5f, 3.0f), randomf(0.5f, 5.0f), 1 };
             actor->Initialize();

@@ -1,13 +1,13 @@
-#include "World01.h"
-#include "World02.h"
-#include "CheekyLittleDVDLogo.h"
-#include "CLDLAccelerated.h"
+//#include "World01.h"
+//#include "World02.h"
+//#include "CheekyLittleDVDLogo.h"
 
-#include "World05.h"
+//#include "World05.h"
 #include "World06.h"
 #include "Core/Core.h"
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
+#include "Core/StringUtils.h"
 
 using namespace std;
 
@@ -15,7 +15,7 @@ int main(int argc, char* argv[])
 {
 	
 
-
+//	nc::ncString::signifier = 0;
 
 
 	INFO_LOG("Initialize Engine...")

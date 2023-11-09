@@ -49,9 +49,9 @@ namespace nc
 		// read in data from scene
 		std::string lightTypeName;
 		READ_NAME_DATA(value, "lightType", lightTypeName);
-		if (StringUtils::IsEqualIgnoreCase(lightTypeName, "point")) type = eType::Point;
-		else if (StringUtils::IsEqualIgnoreCase(lightTypeName, "directional")) type = eType::Directional;
-		else if (StringUtils::IsEqualIgnoreCase(lightTypeName, "spot")) type = eType::Spot;
+		if (ncString::IsEqualIgnoreCase(lightTypeName, "point")) type = eType::Point;
+		else if (ncString::IsEqualIgnoreCase(lightTypeName, "directional")) type = eType::Directional;
+		else if (ncString::IsEqualIgnoreCase(lightTypeName, "spot")) type = eType::Spot;
 
 		READ_DATA(value, color);
 		READ_DATA(value, intensity);

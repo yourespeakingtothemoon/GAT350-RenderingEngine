@@ -25,9 +25,6 @@
     <ClCompile Include="World02.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Downloads\GAT350-RenderingEngine-master(1)\GAT350-RenderingEngine-master\Source\Application\CLDLAccelerated.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\Downloads\GAT350-RenderingEngine-master(1)\GAT350-RenderingEngine-master\Source\Application\CheekyLittleDVDLogo.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -43,9 +40,6 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="World02.h">
-      <Filter>Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\Downloads\GAT350-RenderingEngine-master(1)\GAT350-RenderingEngine-master\Source\Application\CLDLAccelerated.h">
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Downloads\GAT350-RenderingEngine-master(1)\GAT350-RenderingEngine-master\Source\Application\CheekyLittleDVDLogo.h">
@@ -103,6 +97,15 @@
     </None>
     <None Include="..\..\Build\Assets\Scenes\ComponentsScene.json">
       <Filter>Scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\PostProcess.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\PostProcess.prog">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\PostProcess.vert">
+      <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>
