@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include <SDL2-2.28.4/include/SDL_ttf.h>
 #include <SDL2-2.28.4/include/SDL_image.h>
+#include "GLUtils.h"
 
 namespace nc
 {
@@ -32,6 +33,7 @@ namespace nc
 
 		m_window = SDL_CreateWindow(title.c_str(), 100, 100, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 
+		// SETTING VERSIONS
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
@@ -42,7 +44,12 @@ namespace nc
 		SDL_GL_SetSwapInterval(1);
 
 		m_context = SDL_GL_CreateContext(m_window);
+		// my addition: 
+	//	nc::CheckGLError();
+
 		gladLoadGL();
+		// my addition: 
+	//	nc::CheckGLError();
 
 		glEnable(GL_DEBUG_OUTPUT);
 		glDebugMessageCallback(DebugCallback, 0);
@@ -56,26 +63,40 @@ namespace nc
 
 		glViewport(0, 0, width, height);
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		glEnable(GL_DEPTH_TEST);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // multiplication between two color values 
+
+		glEnable(GL_DEPTH_TEST); // buffer for depth of pixels
 		glDepthFunc(GL_LESS);
 
+		// backface culling
 		glEnable(GL_CULL_FACE);
+		// my addition: 
+		//nc::CheckGLError();
 		glCullFace(GL_BACK);
-		glFrontFace(GL_CCW);
+		glFrontFace(GL_CCW); // counter-clockwise
 	}
 
 	void Renderer::BeginFrame(const glm::vec3& color)
+
 	{
 		glDepthMask(GL_TRUE);
 		glClearColor(color.r, color.g, color.b, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		//nc::CheckGLError();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // bit mask - depth in bits 
+	//	nc::CheckGLError();
+
 	}
 
 	void Renderer::EndFrame()
 	{
 		SDL_GL_SwapWindow(m_window);
+	}
+
+	void Renderer::ClearDepth()
+	{
+		glClear(GL_DEPTH_BUFFER_BIT); // bit mask - depth in bits 
+
 	}
 
 	void Renderer::SetColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
@@ -111,8 +132,13 @@ namespace nc
 	void Renderer::ResetViewport()
 	{
 		glViewport(0, 0, m_width, m_height);
+
 	}
 
+	
+
+
+	// if error, this callback is called by OpenGL
 	void APIENTRY DebugCallback(GLenum source, GLenum type, GLuint id,
 		GLenum severity, GLsizei length, const GLchar* message, const void* param) {
 
@@ -192,3 +218,4 @@ namespace nc
 		}
 	}
 }
+

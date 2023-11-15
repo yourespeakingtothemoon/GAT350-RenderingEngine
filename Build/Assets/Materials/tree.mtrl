@@ -1,6 +1,6 @@
 {
   "program": "shaders/unlit_billboard.prog",
-  "albedoTexture": "textures/tree.tga",
+  "albedoTexture": "Textures/MiscTextures/tree.tga",
   "albedo": [
     1,
     1,

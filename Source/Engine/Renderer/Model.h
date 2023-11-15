@@ -23,7 +23,7 @@ namespace nc
 
 	public:
 		bool Create(std::string filename, ...) override;
-		bool Load(const std::string& filename, const glm::vec3& translate = glm::vec3(0), const glm::vec3& rotation = glm::vec3(0), const glm::vec3& scale = glm::vec3(1));
+		bool Load(const std::string& filename, const glm::vec3& translate = glm::vec3(0), const glm::vec3& rotation = glm::vec3(0), const glm::vec3& scale = glm::vec3(1)); // default value
 		void Draw(GLenum primitive = GL_TRIANGLES);
 
 	private:
@@ -32,6 +32,5 @@ namespace nc
 
 	private:
 		res_t<VertexBuffer> m_vertexBuffer;
-		
 	};
 }

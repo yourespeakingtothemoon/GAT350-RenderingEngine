@@ -11,8 +11,8 @@ namespace nc
 	{
 		glm::vec3 euler = QuaternionToEuler(m_owner->transform.rotation);
 
-		Pitch = m_owner->transform.rotation.x;
-		Yaw = m_owner->transform.rotation.y;
+		pitch = euler.x;
+		yaw = euler.y;
 
 		return true;
 	}
@@ -22,17 +22,17 @@ namespace nc
 		// get camera rotation
 		if (ENGINE.GetSystem<InputSystem>()->GetMouseButtonDown(2))
 		{
-			glm::vec2 axis = ENGINE.GetSystem<InputSystem>()->GetMouseRelative() * Sensitivity;
+			glm::vec2 axis = ENGINE.GetSystem<InputSystem>()->GetMouseRelative() * sensitivity;
 
-			Yaw += axis.x;
-			Pitch -= axis.y;
-			Pitch = glm::clamp(Pitch, -89.0f, 89.0f);
+			yaw += axis.x;
+			pitch -= axis.y;
+			pitch = glm::clamp(pitch, -89.0f, 89.0f);
 		}
 
 		glm::vec3 forward;
-		forward.x = cos(glm::radians(Yaw - 90.0f)) * cos(glm::radians(Pitch));
-		forward.y = sin(glm::radians(Pitch));
-		forward.z = sin(glm::radians(Yaw - 90.0f)) * cos(glm::radians(Pitch));
+		forward.x = cos(glm::radians(yaw - 90.0f)) * cos(glm::radians(pitch));
+		forward.y = sin(glm::radians(pitch));
+		forward.z = sin(glm::radians(yaw - 90.0f)) * cos(glm::radians(pitch));
 		forward = glm::normalize(forward);
 
 		glm::mat4 view = glm::lookAt(glm::vec3{ 0.0f }, -forward, glm::vec3{ 0, 1, 0 });
@@ -49,19 +49,19 @@ namespace nc
 
 		// convert world direction space to camera space
 		direction = m_owner->transform.rotation * direction;
-		m_owner->transform.position += direction * (Speed * dt);
+		m_owner->transform.position += direction * (speed * dt);
 	}
-
 	void CameraController::ProcessGui()
 	{
-		ImGui::DragFloat("Speed", &Speed, 0.1f);
-		ImGui::DragFloat("Sensitivity", &Sensitivity, 0.1f);
+		ImGui::DragFloat("Speed", &speed, 0.1f);
+		ImGui::DragFloat("Sensitivity", &sensitivity, 3.0f);
 	}
 
 	void CameraController::Read(const json_t& value)
 	{
-		READ_DATA(value, Speed);
-		READ_DATA(value, Sensitivity);
+		READ_DATA(value, speed);
+		READ_DATA(value, sensitivity);
+		READ_DATA(value, rotation);
 	}
 
 }

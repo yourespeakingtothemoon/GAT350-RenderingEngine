@@ -50,8 +50,8 @@ namespace nc
             actor->AddComponent(std::move(cameraComponent));
 
             auto cameraController = CREATE_CLASS(CameraController);
-            cameraController->Speed = 5;
-            cameraController->Sensitivity = 0.5f;
+            cameraController->speed = 5;
+            cameraController->sensitivity = 0.5f;
             cameraController->m_owner = actor.get();
             cameraController->Initialize();
             actor->AddComponent(std::move(cameraController));

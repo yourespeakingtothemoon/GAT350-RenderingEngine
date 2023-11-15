@@ -15,7 +15,8 @@ namespace nc
 
 		bool Create(std::string filename, ...) override;
 		bool CreateFramebuffer(res_t<Texture> texture);
-		bool CreateDepthbuffer(int width, int height);
+		bool CreateDepthBuffer(int width, int height);
+		bool CreateDepthBuffer(res_t<Texture> texture);
 
 		void Bind();
 		void Unbind();
@@ -23,7 +24,7 @@ namespace nc
 		glm::ivec2 GetSize() const { return m_size; }
 
 	protected:
-		GLuint m_fbo = 0;
+		GLuint m_fbo = 0; // framebuffer object
 		res_t<Texture> m_texture;
 		glm::ivec2 m_size{ 0 };
 	};

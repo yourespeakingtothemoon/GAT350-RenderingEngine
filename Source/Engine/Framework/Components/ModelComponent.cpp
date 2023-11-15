@@ -1,22 +1,27 @@
 #include "ModelComponent.h"
 #include "Framework/Actor.h"
 #include "Framework/Resource/ResourceManager.h"
-#include "Core/StringUtils.h"
+#include "Core/Core.h"
 
 namespace nc
 {
 	CLASS_DEFINITION(ModelComponent)
 
-	bool ModelComponent::Initialize()
+		bool ModelComponent::Initialize()
 	{
 		if (!modelName.empty())
 		{
 			model = GET_RESOURCE(Model, modelName);
-			//ADD_RESOURCE(modelName, model);
+		}
+		else {
+			ERROR_LOG("Can't find model, yo.");
 		}
 		if (model && !materialName.empty())
 		{
-			material = GET_RESOURCE(Material, materialName);
+			material = (GET_RESOURCE(Material, materialName));
+		}
+		else {
+			ERROR_LOG("Can't find material, yo.");
 		}
 
 		return true;
@@ -41,12 +46,11 @@ namespace nc
 	{
 		READ_DATA(value, modelName);
 		READ_DATA(value, materialName);
-
 		READ_DATA(value, enableDepth);
+
 		std::string cullfaceName;
-		if (READ_NAME_DATA(value, "cullface", cullfaceName)) {
-			if (ncString::IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;
-			if (ncString::IsEqualIgnoreCase(cullfaceName, "none")) cullface = GL_NONE;
-		}
+		READ_NAME_DATA(value, "cullface", cullfaceName);
+		if (ncString::IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;
+		if (ncString::IsEqualIgnoreCase(cullfaceName, "none")) cullface = GL_NONE;
 	}
 }

@@ -1,0 +1,89 @@
+{
+  "actors": [
+    {
+      "type": "Actor",
+      "name": "camera1",
+      "persistent": true,
+      "active": true,
+      "prototype": false,
+      "transform": {
+        "position": [ 1, 0, 1 ],
+        "scale": [ 1, 1, 1 ],
+        "rotation": [ 0, 90, 0 ]
+      },
+      "components": [
+        {
+          "type": "CameraComponent",
+          "fov": 70.0,
+          "aspect": 1.78,
+          "near": 0.1,
+          "far": 100.0,
+          "projectionType": "orthographic"
+        },
+        {
+          "type": "CameraController",
+          "speed": 0.1,
+          "sensitivity": 3.0
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "light1",
+      "persistent": true,
+      "active": true,
+      "prototype": false,
+      "transform": {
+        "position": [ 3, 0, 0 ],
+        "rotation": [ 0, 0, 0 ]
+      },
+      "components": [
+        {
+          "type": "LightComponent",
+          "color": [ 1, 1, 1 ],
+          "intensity": 1.0,
+          "range": 35.0,
+          "innerAngle": 10.0,
+          "outerAngle": 30.0
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "actor1",
+      "persistent": true,
+      "active": false,
+      "enableDepth": false,
+      "transform": {
+        "position": [ 0.0, 0.0, 0.0 ],
+        "rotation": [ 0, 0, 0 ],
+        "scale": [ 0.5, 0.5, 0.5 ]
+      },
+      "components": [
+        {
+          "type": "ModelComponent",
+          "modelName": "models/drachen.fbx",
+          "materialName": "materials/drachen.mtrl"
+        },
+        {
+          "type": "RotateComponent",
+          "euler": [ 15, 45, 5 ]
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "postprocess",
+      "persistent": true,
+      "active": true,
+      "prototype": false,
+      "components": [
+        {
+          "type": "ModelComponent",
+          "modelName": "models/quad.obj",
+          "materialName": "Materials/postprocess.mtrl"
+        }
+      ]
+    }
+  ]
+}

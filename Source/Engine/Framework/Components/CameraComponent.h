@@ -6,25 +6,39 @@ namespace nc
 {
 	class CameraComponent : public Component
 	{
+
+	public:
+		enum eProjectionType
+		{
+			Perspective,
+			Orthographic
+		};
+
 	public:
 		CLASS_DECLARATION(CameraComponent)
 
 		bool Initialize() override;
-		void Update(float deltaTime) override;
+		void Update(float dt) override;
 		void ProcessGui() override;
 
-		void SetPerspective(float fov, float ar, float n, float f);
-		void SetLookAt(const glm::vec3& lens, const glm::vec3& center, const glm::vec3& up = { 0, 1, 0 });
+		void SetPerspective(float fov, float aspect, float near, float far);
+		void SetLookAt(const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up = { 0, 1, 0 });
 
-		void SetProgram(const res_t<Program> Program);
+		void SetProgram(const res_t<Program> program);
 
 	public:
 		glm::mat4 projection{ 1 };
 		glm::mat4 view{ 1 };
+		glm::vec3 rotation{ 1 };
 
-		float FOV = 70.0f;
-		float AspectRatio = 0.0f;
-		float Near = 0.1f;
-		float Far = 100.0f;
+		float fov = 70.0f;
+		float aspect = 0.0f;
+		float near = 0.1f;
+		float far = 100.0f;
+
+		eProjectionType projectionType = Perspective; // default
+		float size{ 8 };
+
+
 	};
 }

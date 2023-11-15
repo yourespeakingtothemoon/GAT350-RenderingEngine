@@ -1,7 +1,8 @@
 #pragma once
 #include "Framework/Resource/Resource.h"
-#include <glm/glm/glm.hpp>
-#include <glad/include/glad/glad.h>
+#include "glm/glm/glm.hpp"
+#include "glad/include/glad/glad.h"
+
 
 namespace nc
 {
@@ -21,12 +22,16 @@ namespace nc
 		void SetActive(GLuint unit) { glActiveTexture(unit); }
 		void Bind() { glBindTexture(m_target, m_texture); }
 
+		// friends can access protected data 
 		friend class Renderer;
 		friend class Framebuffer;
 
 	protected:
+		// texture handle
 		GLuint m_texture = 0;
+		// default
 		GLenum m_target = GL_TEXTURE_2D;
-		glm::ivec2 m_size{ 0 };
+		// store texture as a glm vec2
+		glm::ivec2 m_size{0};
 	};
 }

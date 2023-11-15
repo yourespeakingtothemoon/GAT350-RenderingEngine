@@ -1,6 +1,6 @@
 {
-  "program":"shaders/unlit_multi_texture.prog",
-  "textures": [ "textures/llama.tga", "textures/blue-wooden-chair.png" ],
+  "program":"Shaders/unlit_multi_texture.prog",
+  "textures": [ "Textures/llama.tga", "Textures/guy.png" ],
   "color":[
       1,
       1,

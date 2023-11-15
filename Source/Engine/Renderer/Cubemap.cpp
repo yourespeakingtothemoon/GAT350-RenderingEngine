@@ -7,7 +7,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stb/stb_image.h>
-
+// va = variatic arguments 
 namespace nc
 {
 	bool Cubemap::Create(std::string filename, ...)
@@ -38,14 +38,14 @@ namespace nc
 
 		GLuint targets[] =
 		{
-			GL_TEXTURE_CUBE_MAP_POSITIVE_X,
-			GL_TEXTURE_CUBE_MAP_NEGATIVE_X,
-			GL_TEXTURE_CUBE_MAP_POSITIVE_Y,
+			GL_TEXTURE_CUBE_MAP_POSITIVE_X,// +
+			GL_TEXTURE_CUBE_MAP_NEGATIVE_X,// -
+			GL_TEXTURE_CUBE_MAP_POSITIVE_Y,// +
 			GL_TEXTURE_CUBE_MAP_NEGATIVE_Y,
-			GL_TEXTURE_CUBE_MAP_POSITIVE_Z,
+			GL_TEXTURE_CUBE_MAP_POSITIVE_Z,// +
 			GL_TEXTURE_CUBE_MAP_NEGATIVE_Z
 		};
-
+		// vector dynamic array 
 		for (size_t i = 0; i < filenames.size(); i++)
 		{
 			int channels = 0;
@@ -59,7 +59,8 @@ namespace nc
 			GLenum internalFormat = (channels == 4) ? GL_RGBA8 : GL_RGB8;
 			GLenum format = (channels == 4) ? GL_RGBA : GL_RGB;
 
-			glTexImage2D(targets[i], 0, GL_RGB, m_size.x, m_size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+			glTexImage2D(targets[i], 0, internalFormat, m_size.x, m_size.y, 0, format, GL_UNSIGNED_BYTE, data);
+			//glTexImage2D(targets[i], 0, GL_RGB, m_size.x, m_size.y, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 			stbi_image_free(data);
 		}
 

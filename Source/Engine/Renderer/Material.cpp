@@ -23,47 +23,53 @@ namespace nc
 		// get program resource
 		m_program = GET_RESOURCE(Program, program);
 
-		// read the textures
+		// read the textures name
 		std::string albedoTextureName;
-		if (READ_NAME_DATA(document, "albedoTexture", albedoTextureName)) {
+		if (READ_NAME_DATA(document, "albedoTexture", albedoTextureName))
+		{
 			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture = GET_RESOURCE(Texture, albedoTextureName);
 		}
 
 		std::string specularTextureName;
-		if (READ_NAME_DATA(document, "specularTexture", specularTextureName)) {
+		if (READ_NAME_DATA(document, "specularTexture", specularTextureName))
+		{
 			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture = GET_RESOURCE(Texture, specularTextureName);
 		}
 
 		std::string emissiveTextureName;
-		if (READ_NAME_DATA(document, "emissiveTexture", emissiveTextureName)) {
+		if (READ_NAME_DATA(document, "emissiveTexture", emissiveTextureName))
+		{
 			params |= EMISSIVE_TEXTURE_MASK;
+
 			emissiveTexture = GET_RESOURCE(Texture, emissiveTextureName);
 		}
 
 		std::string normalTextureName;
-		if (READ_NAME_DATA(document, "normalTexture", normalTextureName)) {
+		if (READ_NAME_DATA(document, "normalTexture", normalTextureName))
+		{
 			params |= NORMAL_TEXTURE_MASK;
+
 			normalTexture = GET_RESOURCE(Texture, normalTextureName);
 		}
 
 		std::string cubemapName;
-		if (READ_NAME_DATA(document, "cubemap", cubemapName)) {
-			params |= NORMAL_TEXTURE_MASK;
+		if (READ_NAME_DATA(document, "cubemap", cubemapName))
+		{
+			params |= CUBEMAP_TEXTURE_MASK;
 			std::vector<std::string> cubemaps;
 			READ_DATA(document, cubemaps);
-
 			cubemapTexture = GET_RESOURCE(Cubemap, cubemapName, cubemaps);
 		}
 
 		READ_DATA(document, albedo);
 		READ_DATA(document, specular);
-		READ_DATA(document, emissive);
 		READ_DATA(document, shininess);
+	//	READ_DATA(document, reflectionIntensity);
+		READ_DATA(document, emissive);
 		READ_DATA(document, tiling);
 		READ_DATA(document, offset);
-
 
 		return true;
 	}
@@ -72,38 +78,34 @@ namespace nc
 	{
 		m_program->Use();
 		m_program->SetUniform("material.params", params);
-
 		m_program->SetUniform("material.albedo", albedo);
 		m_program->SetUniform("material.specular", specular);
-		m_program->SetUniform("material.emissive", emissive);
 		m_program->SetUniform("material.shininess", shininess);
+	//	m_program->SetUniform("material.reflectionIntensity", reflectionIntensity);
+		m_program->SetUniform("material.emissive", emissive);
 		m_program->SetUniform("material.tiling", tiling);
 		m_program->SetUniform("material.offset", offset);
 
 		if (albedoTexture)
 		{
-			params |= ALBEDO_TEXTURE_MASK;
 			albedoTexture->SetActive(GL_TEXTURE0);
 			albedoTexture->Bind();
 		}
 
 		if (specularTexture)
 		{
-			params |= SPECULAR_TEXTURE_MASK;
 			specularTexture->SetActive(GL_TEXTURE1);
 			specularTexture->Bind();
 		}
 
 		if (normalTexture)
 		{
-			params |= NORMAL_TEXTURE_MASK;
 			normalTexture->SetActive(GL_TEXTURE2);
 			normalTexture->Bind();
 		}
 
 		if (emissiveTexture)
 		{
-			params |= EMISSIVE_TEXTURE_MASK;
 			emissiveTexture->SetActive(GL_TEXTURE3);
 			emissiveTexture->Bind();
 		}
@@ -113,16 +115,23 @@ namespace nc
 			cubemapTexture->SetActive(GL_TEXTURE4);
 			cubemapTexture->Bind();
 		}
+		if (depthTexture)
+		{
+			depthTexture->SetActive(GL_TEXTURE5);
+			depthTexture->Bind();
+		}
 	}
 	void Material::ProcessGui()
 	{
 		ImGui::Begin("Material");
-		ImGui::ColorEdit3("Albedo", glm::value_ptr(albedo));
-		ImGui::ColorEdit3("Specular", glm::value_ptr(specular));
-		ImGui::ColorEdit3("Emissive", glm::value_ptr(emissive));
+		ImGui::ColorEdit4("Albedo", glm::value_ptr(albedo));
+		ImGui::ColorEdit4("Specular", glm::value_ptr(specular));
 		ImGui::DragFloat("Shininess", &shininess, 0.1f, 2.0f, 200.0f);
+		//ImGui::DragFloat("Reflection Intensity", &reflectionIntensity, 0.1f, 0.0f, 1.0f);
+		ImGui::ColorEdit4("Emissive", glm::value_ptr(emissive));
 		ImGui::DragFloat2("Tiling", glm::value_ptr(tiling), 0.1f);
 		ImGui::DragFloat2("Offset", glm::value_ptr(offset), 0.1f);
+
 		ImGui::End();
 	}
 }

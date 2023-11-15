@@ -34,6 +34,12 @@
     <ClCompile Include="World06.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="World06Old.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="World07.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="World01.h">
@@ -49,6 +55,12 @@
       <Filter>Source</Filter>
     </ClInclude>
     <ClInclude Include="World06.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World06Old.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="World07.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -106,6 +118,9 @@
     </None>
     <None Include="..\..\Build\Assets\Shaders\PostProcess.vert">
       <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Scenes\scene_framebuffer.json">
+      <Filter>Scenes</Filter>
     </None>
   </ItemGroup>
 </Project>

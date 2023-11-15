@@ -156,7 +156,7 @@ namespace nc
 		// find uniform in map
 		auto uniform = m_uniforms.find(name);
 		// if not found, get uniform in program
-		if (uniform == m_uniforms.end()) 
+		if (uniform == m_uniforms.end())
 		{
 			// get uniform in program
 			GLint location = glGetUniformLocation(m_program, name.c_str());

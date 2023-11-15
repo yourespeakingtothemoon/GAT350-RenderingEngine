@@ -5,13 +5,14 @@ in layout(location = 1) vec3 color;
 
 out layout(location = 0) vec3 ocolor;
 
-uniform mat4 model;
+// pass in model matrix from world3
+uniform mat4 model; 
 uniform mat4 view;
 uniform mat4 projection;
 
 void main()
 {
-	ocolor = color;
-	mat4 mvp = projection * view * model;
+	ocolor = color; // pass color to outcolor
+	mat4 mvp = projection * view * model; // model view projection 
 	gl_Position = mvp * vec4(position, 1.0);
 }

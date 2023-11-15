@@ -106,8 +106,9 @@
       <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget);$(ThirdPartyDir)assimp\lib\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy "$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)\*.dll" "$(SolutionDir)Build" /Y 
-xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" /Y</Command>
+      <Command>xcopy "$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)\*.dll" "$(SolutionDir)Build" /Y
+xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" /Y
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -134,8 +135,9 @@ xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" 
       <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget);$(ThirdPartyDir)assimp\lib\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy "$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)\*.dll" "$(SolutionDir)Build" /Y 
-xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" /Y</Command>
+      <Command>xcopy "$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)\*.dll" "$(SolutionDir)Build" /Y
+xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" /Y
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -145,6 +147,7 @@ xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" 
       <PreprocessorDefinitions>_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ThirdPartyDir)SDL2-2.28.4\include;$(ThirdPartyDir)assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -158,9 +161,13 @@ xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" 
       <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget);$(ThirdPartyDir)assimp\lib\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy "$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)\*.dll" "$(SolutionDir)Build" /Y 
-xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" /Y</Command>
+      <Command>xcopy "$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)\*.dll" "$(SolutionDir)Build" /Y
+xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" /Y
+</Command>
     </PostBuildEvent>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -186,8 +193,9 @@ xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" 
       <AdditionalLibraryDirectories>$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget);$(ThirdPartyDir)assimp\lib\$(Configuration)</AdditionalLibraryDirectories>
     </Lib>
     <PostBuildEvent>
-      <Command>xcopy "$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)\*.dll" "$(SolutionDir)Build" /Y 
-xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" /Y</Command>
+      <Command>xcopy "$(ThirdPartyDir)SDL2-2.28.4\lib\$(PlatformTarget)\*.dll" "$(SolutionDir)Build" /Y
+xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" /Y
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -202,6 +210,7 @@ xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" 
     <ClCompile Include="Cubemap.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="Framebuffer.cpp" />
+    <ClCompile Include="GLUtils.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Model.cpp" />
@@ -215,10 +224,11 @@ xcopy "$(ThirdPartyDir)assimp\lib\$(Configuration)\*.dll" "$(SolutionDir)Build" 
     <ClInclude Include="Cubemap.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="Framebuffer.h" />
+    <ClInclude Include="GLUtils.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Material.h" />
-    <ClInclude Include="Model.h" />
     <ClInclude Include="Program.h" />
+    <ClInclude Include="Model.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Texture.h" />
