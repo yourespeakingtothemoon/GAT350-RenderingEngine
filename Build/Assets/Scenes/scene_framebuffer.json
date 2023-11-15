@@ -18,7 +18,7 @@
           "aspect": 1.78,
           "near": 0.1,
           "far": 100.0,
-          "projectionType": "orthographic"
+          "projectionType": "perspective"
         },
         {
           "type": "CameraController",

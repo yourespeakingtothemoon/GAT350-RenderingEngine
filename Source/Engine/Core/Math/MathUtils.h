@@ -49,6 +49,32 @@ namespace nc
 		return (a * (1.0f - t)) + (b * t);
 	}
 
+	//bit manipulation
+	template<typename T>
+	constexpr T SetBits(T a, T b)
+	{
+		//bitwise to set bits
+		return a | b;
+	}
+	template<typename T>
+	constexpr T ClearBits(T a, T b)
+	{
+		//bitwise to clear bits
+		return a & ~b;
+	}
+	template<typename T>
+	constexpr T ToggleBits(T a, T b)
+	{
+		//bitwise to toggle bits
+		return a ^ b;
+	}
+	template<typename T>
+	constexpr T TestBits(T a, T b)
+	{
+		//bitwise to test bits
+		return (a & b) == b;
+	}
+
 	// convert euler angles (degrees) to a quaternion
 	glm::vec3 QuaternionToEuler(const glm::quat& q);
 

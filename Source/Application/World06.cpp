@@ -151,7 +151,7 @@ namespace nc
 		if (effect)
 		{
 			ImGui::SliderFloat("Chromatic Abberation Intensity", &m_chromaticAbberationIntensity, 0.0f, 1.0f);
-			ImGui::SliderFloat("Chromatic Abberation Angle", &m_chromaticAbberationAngle, 0.0f, 1.0f);
+			
 		}
 		effect = m_params & RADIAL_BLUR_MASK;
 		if (ImGui::Checkbox("Blur", &effect))
@@ -235,11 +235,9 @@ namespace nc
 			}
 			if (m_params & CHROMATIC_ABERRATION_MASK)
 			{
-				program->SetUniform("chromaticAbberationIntensity", m_chromaticAbberationIntensity);
-				program->SetUniform("chromaticAbberationAngle", m_chromaticAbberationAngle);
-				program->SetUniform("texelSize", texelSize);
-				program->SetUniform("textureWidth", m_textureWidth);
-				program->SetUniform("textureHeight", m_textureHeight);
+				program->SetUniform("chromaticAberrationIntensity", m_chromaticAbberationIntensity);
+				program->SetUniform("chromaticAberrationAngle", m_chromaticAbberationAngle);
+				
 			}
 		
 			

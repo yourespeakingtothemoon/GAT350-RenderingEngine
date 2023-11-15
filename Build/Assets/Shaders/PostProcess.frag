@@ -156,20 +156,25 @@ vec4 applyBlur5x5Kernel(in vec2 uv, in vec2 texelSize, float intensity) {
 
 vec2 chromaOffset(float angle, float strength)
 {
-	float x = cos(angle) * strength;
-	float y = sin(angle) * strength;
-	return vec2(x, y);
+	 return vec2(cos(angle) * strength, sin(angle) * strength);
 }
 
 vec4 chromaticAberration(in vec2 uv, in vec4 color, float intensity)
 {
-	vec2 offset = chromaOffset(chromaticAberrationAngle, chromaticAberrationAngle);
-	vec4 r = texture(screenTexture, uv + offset);
-	offset = chromaOffset(0.5, intensity);
-	vec4 b = texture(screenTexture, uv + offset);
-	offset = chromaOffset(0.25, intensity);
-	vec4 g = texture(screenTexture, uv + offset);
-	return vec4(r.r, g.g, b.b, 1.0);
+    // Offset for each color channel
+    vec2 redOffset = chromaOffset(0.0, chromaticAberrationIntensity);
+    vec2 greenOffset = chromaOffset(2.0 * 3.14159 / 3.0, chromaticAberrationIntensity);
+    vec2 blueOffset = chromaOffset(4.0 * 3.14159 / 3.0, chromaticAberrationIntensity);
+
+    // Sample each color channel with its offset
+    float r = texture2D(screenTexture, uv + redOffset).r;
+    float g = texture2D(screenTexture, uv + greenOffset).g;
+    float b = texture2D(screenTexture, uv + blueOffset).b;
+
+    // Combine the color channels
+    vec4 finalColor = vec4(r, g, b, 1.0);
+
+   return finalColor;
 }
 
 // Define the radialBlur function which takes several parameters:
@@ -266,31 +271,15 @@ void main()
 	if (bool(params & GRAYSCALE_MASK)) postprocess = grayscale(postprocess);
 	if (bool(params & COLORTINT_MASK)) postprocess = colorTint(postprocess, tintRGB);
 	if (bool(params & SCANLINE_MASK)) postprocess = scanline(postprocess, ftexcoord, scanlineFrequency, scanlineIntensity);
-
-    // overlay grain effect if GRAIN_MASK is present:
-    if (bool(params & GRAIN_MASK)) postprocess = grain(ftexcoord * textureSize(screenTexture, 0), postprocess, time, grainIntensity);
-	if (bool(params & BLUR_MASK)) 
-		{
-			postprocess = applyBlurKernel(ftexcoord, texelSize, blurIntensity);
-		}
-    if (bool(params & BLUR5x5_MASK)) 
-		{
-			postprocess = applyBlur5x5Kernel(ftexcoord, texelSize, blurIntensity);
-		}
-
-	if (bool(params & EDGE_DETECTION_MASK)) {
-
-        vec2 texelSize = vec2(1.0 / textureWidth, 1.0 / textureHeight);
-        postprocess = applyEdgeKernel(ftexcoord, texelSize, edgeIntensity);
-       }
-
-    if (bool(params & RADIAL_BLUR_MASK)) 
+     if(bool(params & CHROMATIC_ABERRATION_MASK)) postprocess = chromaticAberration(ftexcoord, postprocess, 0.01);
+     if (bool(params & RADIAL_BLUR_MASK)) 
         {
             vec2 texelSize = vec2(1.0 / textureWidth, 1.0 / textureHeight);
             postprocess = radialBlur(postprocess, ftexcoord, texelSize, uBlurSize, uBlurDirections, uBlurQuality, radialBlurIntensity);
         }
-        if(bool(params & CHROMATIC_ABERRATION_MASK)) postprocess = chromaticAberration(ftexcoord, postprocess, 0.01);
-
+    // overlay grain effect if GRAIN_MASK is present:
+    if (bool(params & GRAIN_MASK)) postprocess = grain(ftexcoord * textureSize(screenTexture, 0), postprocess, time, grainIntensity);
+   
 	ocolor = mix(basecolor, postprocess, blend);
 
 }

@@ -100,8 +100,11 @@ namespace nc
 		auto models = m_scene->GetComponents<ModelComponent>();
 		for (auto model : models)
 		{
-			program->SetUniform("model", model->m_owner->transform.GetMatrix());
-			model->model->Draw(); // model component->actual model with vertices->Draw();
+			if (model->castShadow)
+			{
+				program->SetUniform("model", model->m_owner->transform.GetMatrix());
+				model->model->Draw(); // model component->actual model with vertices->Draw();
+			}
 		}
 
 		framebuffer->Unbind();
