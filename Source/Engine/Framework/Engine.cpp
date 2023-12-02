@@ -41,7 +41,6 @@ namespace nc
 		SDL_Event event;
 		SDL_PollEvent(&event);
 		GetSystem<Gui>()->ProcessEvent(event);
-
 		
 		// update time
 		m_time.Tick();

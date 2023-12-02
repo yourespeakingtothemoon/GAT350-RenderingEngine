@@ -38,7 +38,6 @@ namespace nc
 		virtual void OnDestroy() {}
 		virtual void ProcessGui() {}
 
-
 	public:
 		std::string name;
 		bool active = true;

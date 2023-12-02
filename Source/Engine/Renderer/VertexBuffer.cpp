@@ -1,17 +1,12 @@
 #include "VertexBuffer.h"
-#include "GLUtils.h"
 
 namespace nc
 {
-
 	VertexBuffer::VertexBuffer()
 	{
 		glGenVertexArrays(1, &m_vao);
 		glBindVertexArray(m_vao);
-		// my addition: 
-		//CheckGLError();
 	}
-
 
 	VertexBuffer::~VertexBuffer()
 	{
@@ -35,8 +30,6 @@ namespace nc
 		// create vertex buffer
 		glGenBuffers(1, &m_vbo);
 		glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-		// my addition: 
-		//CheckGLError();
 		// copy data into vertex buffer
 		glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
@@ -50,9 +43,7 @@ namespace nc
 
 		// create index buffer
 		glGenBuffers(1, &m_ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo);
-		// my addition: 
-		//CheckGLError();
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ibo); // the index buffer will use GL_ELEMENT_ARRAY_BUFFER
 
 		GLsizei size = 0; // index count * number of bytes of type (sizeof() returns the number of bytes in the data type)
 		switch (m_indexType)
@@ -71,7 +62,7 @@ namespace nc
 		// copy data into index buffer
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
-
+		
 	void VertexBuffer::SetAttribute(int attribindex, GLint size, GLsizei stride, GLuint offset)
 	{
 		// size is number of elements (position = 3 (xyz), color = 3 (rgb), texcoord = 2 (uv))
@@ -90,8 +81,6 @@ namespace nc
 	{
 		// bind vertex array object
 		glBindVertexArray(m_vao);
-		// my addition: 
-		//CheckGLError();
 
 		// if index buffer object was set (!= 0) then draw using index array data, else render primitives from vertex array data
 		if (m_ibo)

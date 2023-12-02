@@ -1,24 +1,21 @@
 #pragma once
 #include "Framework/System.h"
 #include "Font.h"
-#include "Model.h"
+#include "Program.h"
+#include "Shader.h"
 #include "Texture.h"
 #include "Cubemap.h"
-#include "Shader.h"
-#include "Program.h"
 #include "Gui.h"
-#include "Framebuffer.h"
-#include "Material.h"
 #include "VertexBuffer.h"
-
+#include "Material.h"
+#include "Model.h"
+#include "Framebuffer.h"
 #include <glad/include/glad/glad.h>
 #include <SDL2-2.28.4/include/SDL.h>
 #include <string>
 
-namespace nc
-{
-	class Renderer : public ISystem
-	{
+namespace nc {
+	class Renderer : public ISystem {
 	public:
 		Renderer() = default;
 		~Renderer() = default;
@@ -29,7 +26,7 @@ namespace nc
 		void Update() {}
 
 		void CreateWindow(const std::string& title, int width, int height);
-		void BeginFrame(const glm::vec3& color = glm::vec3{0});
+		void BeginFrame(const glm::vec3& color = { 0, 0, 0 });
 		void EndFrame();
 
 		void ClearDepth();
@@ -49,12 +46,12 @@ namespace nc
 		friend class Texture;
 		friend class Gui;
 
-	protected:
+	private:
 		int m_width = 0;
 		int m_height = 0;
 
 		SDL_Renderer* m_renderer = nullptr;
 		SDL_Window* m_window = nullptr;
-		SDL_GLContext m_context = nullptr; 
+		SDL_GLContext m_context = nullptr;
 	};
 }

@@ -1,7 +1,6 @@
 #include "CameraComponent.h"
 #include "Framework/Actor.h"
 #include "Framework/Engine.h"
-#include "Renderer/Renderer.h"
 
 namespace nc
 {
@@ -13,7 +12,8 @@ namespace nc
 		if (aspect == 0)
 		{
 			// set aspect with renderer width / renderer height (make sure it is a floating point division)
-			aspect = ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(); 
+			aspect = (float)ENGINE.GetSystem<Renderer>()->GetWidth() / ENGINE.GetSystem<Renderer>()->GetHeight();
+			// aspect = width / height;
 		}
 
 		return true;
@@ -22,20 +22,16 @@ namespace nc
 	void CameraComponent::Update(float dt)
 	{
 		// set view matrix with glm::lookAt function, use owner position
-		 view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), m_owner->transform.Up());
+		//view = glm::lookAt(m_owner->transform, m_owner->transform.GetMatrix() + m_owner->transform.Forward(), m_owner->transform.Up());
+		view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), m_owner->transform.Up());
 
-		 if (projectionType == Perspective)
-		 {		// set projection matrix with glm::perspective function (fov is in degrees, convert to radians)
-
-			 projection = glm::perspective(glm::radians(fov), aspect, near, far);
-
-		 }
-		 else
-		 {
-			 projection = glm::ortho(-size * aspect * 0.5f, size * aspect * 0.5f, -size * aspect * 0.5f, size * aspect * 0.5f, near, far);
-		 }
-
-
+		if (projectionType == Perspective) {
+			projection = glm::perspective(glm::radians(fov), aspect, near, far);
+		} else {
+			projection = glm::ortho(-size * aspect * 0.5f, size * aspect * 0.5f, -size * 0.5f, size * 0.5f, near, far);
+		}
+		// set projection matrix with glm::perspective function (fov is in degrees, convert to radians)
+		//projection = glm::perspective(glm::radians(fov), ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
 	}
 
 	void CameraComponent::SetPerspective(float fov, float aspect, float near, float far)
@@ -47,13 +43,13 @@ namespace nc
 		this->far = far;
 
 		// set projection matrix with glm::perspective function (fov is in degrees, convert to radians)
-		projection = glm::perspective(glm::radians(fov), this->aspect, this->near, this->far);
+		projection = glm::perspective(glm::radians(fov), ENGINE.GetSystem<Renderer>()->GetWidth() / (float)ENGINE.GetSystem<Renderer>()->GetHeight(), 0.01f, 100.0f);
 	}
 
 	void CameraComponent::SetLookAt(const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up)
 	{
 		// set view matrix with glm::lookAt function
-		view = glm::lookAt(eye, center, up);
+		view = glm::lookAt(m_owner->transform.position, m_owner->transform.position + m_owner->transform.Forward(), glm::vec3{ 0, 1, 0 });
 	}
 
 	void CameraComponent::SetProgram(res_t<Program> program)
@@ -70,12 +66,11 @@ namespace nc
 		const char* types[] = { "Perspective", "Orthographic" };
 		ImGui::Combo("Projection", (int*)(&projectionType), types, 2);
 
-		ImGui::DragFloat("fov", &fov, 0.1f, 0, 70);
-		ImGui::DragFloat("aspect", &aspect, 0.1f, 0.1f, 2.0f);
-		ImGui::DragFloat("near", &near, 0.1f, 0.1f, 4.0f);
-		ImGui::DragFloat("far", &far, 0.1f, 0.1f, 100);
-		ImGui::DragFloat("size", &size, 0.1f);
-
+		ImGui::DragFloat("FOV", &fov, 0.1f, 70, 120);
+		ImGui::DragFloat("Aspect", &aspect, 0.1f, 70, 120);
+		ImGui::DragFloat("Near", &near, 0.1f, 0, far);
+		ImGui::DragFloat("Far", &far, 0.1f, near, 1000);
+		ImGui::DragFloat("Size", &size, 0.1f, near, 1000);
 	}
 
 	void CameraComponent::Read(const json_t& value)
@@ -88,7 +83,7 @@ namespace nc
 
 		std::string projectionTypeName;
 		READ_NAME_DATA(value, "projectionType", projectionTypeName);
-		if (ncString::IsEqualIgnoreCase("orthographic", projectionTypeName)) projectionType = Orthographic;
+		if (IsEqualIgnoreCase("orthographic", projectionTypeName)) projectionType = Orthographic;
 
 		READ_DATA(value, size);
 	}

@@ -5,8 +5,6 @@ in layout(location = 1) vec2 vtexcoord;
 
 out layout(location = 0) vec2 otexcoord;
 
-
-
 void main()
 {
 	otexcoord = vtexcoord;

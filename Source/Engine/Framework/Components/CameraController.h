@@ -13,10 +13,8 @@ namespace nc
 		void ProcessGui();
 
 	public:
-		glm::vec3 rotation{ 1 };
-
 		float sensitivity = 0.1f;
-		float speed = 0;
+		float speed = 3;
 		float yaw = 0;
 		float pitch = 0;
 	};

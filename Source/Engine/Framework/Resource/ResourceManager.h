@@ -1,15 +1,15 @@
 #pragma once
 #include "Resource.h"
+#include "Framework/Singleton.h"
 #include "Core/Logger.h"
 #include "Core/StringUtils.h"
-#include "Framework/Singleton.h"
 #include <map>
 #include <memory>
 #include <string>
 #include <vector>
 
-#define GET_RESOURCE(type, filename, ...)	 nc::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
-#define GET_RESOURCES(type)					nc::ResourceManager::Instance().GetAllOfType<type>();
+#define GET_RESOURCE(type, filename, ...)	nc::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
+#define GET_RESOURCES(type)					nc::ResourceManager::Instance().GetAllOfType<type>()
 #define ADD_RESOURCE(name, resource)		nc::ResourceManager::Instance().Add(name, resource)
 
 namespace nc
@@ -20,9 +20,8 @@ namespace nc
 	class ResourceManager : public Singleton<ResourceManager>
 	{
 	public:
-		// templated resources
 		template<typename T>
-		bool Add(std::string name, res_t<T> resource);
+		bool Add(const std::string& name, res_t<T> resource);
 
 		template<typename T, typename ... TArgs>
 		res_t<T> Get(const std::string& filename, TArgs ... args);
@@ -35,19 +34,15 @@ namespace nc
 	};
 
 	template<typename T>
-	inline bool ResourceManager::Add(std::string name, res_t<T> resource)
-	{	// if it finds it, it returns something that isn't the end. Otherwise return false 
-		std::string lname = ncString::ToLower(name);
-
-		if (m_resources.find(lname) != m_resources.end())
-		{
-
+	inline bool ResourceManager::Add(const std::string& name, res_t<T> resource)
+	{
+		std::string lname = ToLower(name);
+		if (m_resources.find(lname) != m_resources.end()) {
 			WARNING_LOG("Resource already exists: " << lname);
-
 			return false;
 		}
 
-		// map : key pair
+		resource->name = lname;
 		m_resources[lname] = resource;
 
 		return true;
@@ -56,8 +51,7 @@ namespace nc
 	template<typename T, typename ...TArgs>
 	inline res_t<T> ResourceManager::Get(const std::string& filename, TArgs ...args)
 	{
-		std::string lfilename = ncString::ToLower(filename);
-
+		std::string lfilename = ToLower(filename);
 		// find resource in resources map
 		if (m_resources.find(lfilename) != m_resources.end())
 		{
@@ -75,25 +69,21 @@ namespace nc
 		}
 
 		// add resource to resource map, return resource
-		//m_resources[filename] = resource;
 		Add(lfilename, resource);
-
-
 		return resource;
 	}
+
 	template<typename T>
-	inline std::vector<res_t<T>> ResourceManager::GetAllOfType()
-	{
+	inline std::vector<res_t<T>> ResourceManager::GetAllOfType() {
 		std::vector<res_t<T>> result;
-		// key : value pair
-		for (auto resource : m_resources)
-		{
+
+		for (auto resource : m_resources) {
 			auto res = std::dynamic_pointer_cast<T>(resource.second);
-			if (res)
-			{
+			if (res) {
 				result.push_back(res);
 			}
 		}
+
 		return result;
 	}
 }

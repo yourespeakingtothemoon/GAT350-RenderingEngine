@@ -22,12 +22,12 @@ namespace nc
 
 		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
-			WARNING_LOG("Could not load assimp file %s" << importer.GetErrorString());
+			WARNING_LOG("Could not load assimp file " << filename << " error string: " << importer.GetErrorString());
 			return false;
 		}
 
 		glm::mat4 mt = glm::translate(translate);
-		glm::mat4 mr = glm::eulerAngleXYZ(glm::radians(rotation.x), glm::radians(rotation.y), glm::radians(rotation.z));
+		glm::mat4 mr = glm::eulerAngleYXZ(glm::radians(rotation.y), glm::radians(rotation.x), glm::radians(rotation.z));
 		glm::mat4 ms = glm::scale(scale);
 
 		glm::mat4 mx = mt * mr * ms;
@@ -37,11 +37,8 @@ namespace nc
 		return true;
 	}
 
-
 	void Model::Draw(GLenum primitive)
 	{
-		
-		// draw the vertex buffer passing in the primitive
 		m_vertexBuffer->Draw(primitive);
 	}
 
@@ -70,16 +67,11 @@ namespace nc
 			vertex_t vertex;
 
 			vertex.position = transform * glm::vec4{ mesh->mVertices[i].x, mesh->mVertices[i].y, mesh->mVertices[i].z, 1 };
-
-			// inverse transpose of normals to maintain direction during non-uniform scaling and rotation (position vectors) (translation is a direction vector)
-			glm::mat4 normalMatrix = glm::transpose(glm::inverse(transform));
-			vertex.normal = normalMatrix * glm::vec4{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z, 0 };
 			vertex.normal = glm::normalize(transform * glm::vec4{ mesh->mNormals[i].x, mesh->mNormals[i].y, mesh->mNormals[i].z, 0 });
-
 
 			if (mesh->mTangents)
 			{
-				vertex.tangent = glm::normalize(transform * glm::vec4{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z, 0 });
+				vertex.tangent = transform * glm::vec4{ mesh->mTangents[i].x, mesh->mTangents[i].y, mesh->mTangents[i].z, 0 };
 			}
 			else
 			{

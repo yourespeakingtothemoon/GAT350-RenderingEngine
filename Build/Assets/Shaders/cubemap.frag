@@ -2,7 +2,7 @@
 
 in layout(location = 0) vec3 ftexcoord;
 
-out layout(location = 0) vec4 ocolor; // this is the pixel we draw to the screen 
+out layout(location = 0) vec4 ocolor;
 
 layout(binding = 4) uniform samplerCube cubemap;
 

@@ -1,14 +1,14 @@
 #include "RotateComponent.h"
-#include "Core/Math/MathUtils.h"
+#include "Framework/Actor.h"
 
-namespace nc
-{
+namespace nc {
 	CLASS_DEFINITION(RotateComponent)
 
-		bool RotateComponent::Initialize()
+	bool RotateComponent::Initialize()
 	{
 		return true;
 	}
+
 	void RotateComponent::Update(float dt)
 	{
 		glm::quat rotation = EulerToQuaternion(euler * dt);
@@ -17,20 +17,11 @@ namespace nc
 
 	void RotateComponent::ProcessGui()
 	{
-		ImGui::DragFloat3("rotate", glm::value_ptr(euler));
+		ImGui::DragFloat3("Rotate", glm::value_ptr(euler));
 	}
 
 	void RotateComponent::Read(const json_t& value)
 	{
-		if (!Json::Read(value, "euler", euler, true)) {
-			ERROR_LOG("Failed to read euler angles for RotateComponent");
-		}
-		else {
-			INFO_LOG("euler angles parsed from json successfully");
-		}
-
-		READ_DATA(value, euler);
-
-		
+		READ_NAME_DATA(value, "rotate", euler);
 	}
 }

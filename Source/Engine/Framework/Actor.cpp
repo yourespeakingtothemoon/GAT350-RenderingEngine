@@ -8,6 +8,7 @@ namespace nc
 	
 	Actor::Actor(const Actor& other)
 	{
+		active = other.active;
 		name = other.name;
 		tag = other.tag;
 		lifespan = other.lifespan;
@@ -72,22 +73,17 @@ namespace nc
 		components.push_back(std::move(component));
 	}
 
-	void Actor::ProcessGui()
-	{
+	void Actor::ProcessGui() {
 		ImGui::TextColored({ 0, 1, 0, 1 }, "%s", GetClassName());
 		ImGui::Text("Name: %s", name.c_str());
 		ImGui::Text("Tag: %s", tag.c_str());
 		ImGui::Checkbox("Active", &active);
-		// transform 
 		ImGui::Separator();
-		ImGui::TextColored({ 0, 1, 0, 1 }, "Transform");
-
+		ImGui::TextColored({ 1, 1, 0, 1 }, "Transform");
 		transform.ProcessGui();
-		for (auto& component : components)
-		{
+		for (auto& component : components) {
 			ImGui::Separator();
-			ImGui::TextColored({ 0, 1, 0, 1 }, "%s", component->GetClassName()); // displays the component as green in the Inspector GUI 
-
+			ImGui::TextColored({ 0, 1, 1, 1 }, "%s", component->GetClassName());
 			component->ProcessGui();
 		}
 	}

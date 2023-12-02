@@ -1,16 +1,13 @@
 #pragma once
 #include "Framework/System.h"
 #include <glm/glm/glm.hpp>
-#include "Core/Math/Vector2.h"
 #include <SDL2-2.28.4/include/SDL.h>
 #include <vector>
 #include <array>
 
-namespace nc
-{
+namespace nc {
 	// Input system that holds the state of input devices (keyboard, mouse).
-	class InputSystem : public ISystem
-	{
+	class InputSystem : public ISystem {
 	public:
 		InputSystem() = default;
 		~InputSystem() = default;
@@ -29,7 +26,7 @@ namespace nc
 		// mouse
 		// Get mouse position relative to the top left of the screen in pixel coordinates.
 		const glm::vec2& GetMousePosition() const { return m_mousePosition; }
-		// get mouse relative to previous mouse position
+		// Get mouse position relative to previous location in pixel coordinates.
 		glm::vec2 GetMouseRelative() const { return m_mousePosition - m_prevMousePosition; }
 		// Use (0 = left, 1 = middle, 2 = right) to check if the mouse button is down this frame.
 		bool GetMouseButtonDown(uint32_t button) { return m_mouseButtonState[button]; }

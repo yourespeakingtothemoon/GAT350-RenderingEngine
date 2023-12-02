@@ -4,16 +4,12 @@
 
 namespace nc
 {
-	class CameraComponent : public Component
-	{
-
+	class CameraComponent : public Component {
 	public:
-		enum eProjectionType
-		{
+		enum eProjectionType {
 			Perspective,
 			Orthographic
 		};
-
 	public:
 		CLASS_DECLARATION(CameraComponent)
 
@@ -29,16 +25,13 @@ namespace nc
 	public:
 		glm::mat4 projection{ 1 };
 		glm::mat4 view{ 1 };
-		glm::vec3 rotation{ 1 };
 
 		float fov = 70.0f;
 		float aspect = 0.0f;
 		float near = 0.1f;
 		float far = 100.0f;
 
-		eProjectionType projectionType = Perspective; // default
-		float size{ 8 };
-
-
+		eProjectionType projectionType = Perspective;
+		float size = 8;
 	};
 }

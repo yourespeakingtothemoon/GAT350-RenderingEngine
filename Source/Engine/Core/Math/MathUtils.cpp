@@ -1,7 +1,6 @@
 #include "MathUtils.h"
 
-namespace nc
-{
+namespace nc {
     glm::vec3 QuaternionToEuler(const glm::quat& q)
     {
         glm::vec3 euler;

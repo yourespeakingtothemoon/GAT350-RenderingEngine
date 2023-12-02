@@ -1,12 +1,12 @@
 {
   "program": "shaders/reflection.prog",
-  "cubemap": "Ryfjallet",
+  "cubemap": "Yokohama",
   "cubemaps": [
-    "textures/Ryfjallet/posx.jpg",
-    "textures/Ryfjallet/negx.jpg",
-    "textures/Ryfjallet/posy.jpg",
-    "textures/Ryfjallet/negy.jpg",
-    "textures/Ryfjallet/posz.jpg",
-    "textures/Ryfjallet/negz.jpg"
+    "textures/Yokohama/posx.jpg",
+    "textures/Yokohama/negx.jpg",
+    "textures/Yokohama/posy.jpg",
+    "textures/Yokohama/negy.jpg",
+    "textures/Yokohama/posz.jpg",
+    "textures/Yokohama/negz.jpg"
   ]
 }

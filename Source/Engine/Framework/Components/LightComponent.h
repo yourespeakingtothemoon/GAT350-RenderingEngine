@@ -11,7 +11,7 @@ namespace nc
 
 		bool Initialize() override;
 		void Update(float dt) override;
-		void SetProgram(const res_t<Program> program, const std::string& name);
+		void SetProgram(const res_t<Program> program, const std::string& name, const glm::mat4& view);
 
 		void ProcessGui() override;
 
@@ -27,7 +27,6 @@ namespace nc
 
 		eType type = eType::Point;
 		glm::vec3 color{ 1 };
-		glm::vec3 rotation{ 1 };
 		float intensity = 1;
 		float range = 20;
 		float innerAngle = 20;

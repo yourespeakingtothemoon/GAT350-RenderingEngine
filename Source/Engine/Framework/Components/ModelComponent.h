@@ -13,15 +13,16 @@ namespace nc
 		void Update(float dt) override;
 		void Draw(class Renderer& renderer) override;
 		void ProcessGui() override;
+
+
 	public:
 		std::string modelName;
 		std::string materialName;
-
-		res_t<Model> model;
-		res_t<Material> material;
+		res_t<Model> m_model;
+		res_t<Material> m_material;
 
 		bool castShadow{ true };
 		bool enableDepth{ true };
-		GLint cullface = { GL_BACK };
+		GLint cullface{ GL_BACK };
 	};
 }

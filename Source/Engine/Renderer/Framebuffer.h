@@ -24,7 +24,7 @@ namespace nc
 		glm::ivec2 GetSize() const { return m_size; }
 
 	protected:
-		GLuint m_fbo = 0; // framebuffer object
+		GLuint m_fbo = 0;
 		res_t<Texture> m_texture;
 		glm::ivec2 m_size{ 0 };
 	};

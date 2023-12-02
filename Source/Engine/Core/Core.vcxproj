@@ -167,6 +167,7 @@
     <ClCompile Include="Math\MathUtils.cpp" />
     <ClCompile Include="Math\Transform.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

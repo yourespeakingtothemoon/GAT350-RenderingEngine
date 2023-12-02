@@ -68,8 +68,7 @@ namespace nc
 		return true;
 	}
 
-	bool Framebuffer::CreateDepthBuffer(res_t<Texture> texture)
-	{
+	bool nc::Framebuffer::CreateDepthBuffer(res_t<Texture> texture) {
 		m_texture = texture;
 		m_size = m_texture->GetSize();
 		m_texture->Bind();
@@ -82,8 +81,7 @@ namespace nc
 		glDrawBuffer(GL_NONE);
 		glReadBuffer(GL_NONE);
 
-		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		{
+		if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
 			ERROR_LOG("Error creating frame buffer.");
 			return false;
 		}
@@ -97,7 +95,7 @@ namespace nc
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
 	}
-	// unbind when you want to render to the screen
+
 	void Framebuffer::Unbind()
 	{
 		glFlush();

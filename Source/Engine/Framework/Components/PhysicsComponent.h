@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
-#include "glm/glm/glm.hpp"
+#include "Core/Math/Vector2.h"
+#include <glm/glm/glm.hpp>
 
 
 namespace nc
@@ -16,7 +17,7 @@ namespace nc
 		virtual void SetGravityScale(float scale) {}
 
 	public:
-		glm::vec3 velocity{0};
+		glm::vec3 velocity{ 0 };
 		glm::vec3 acceleration{ 0 };
 		float mass = 1.0f;
 		float damping = 0;
