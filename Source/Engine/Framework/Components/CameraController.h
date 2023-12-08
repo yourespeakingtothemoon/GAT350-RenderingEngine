@@ -1,21 +1,21 @@
 #pragma once
+
 #include "Component.h"
 
-namespace nc
-{
-	class CameraController : public Component
-	{
-	public:
-		CLASS_DECLARATION(CameraController)
+namespace nc {
+	class CameraController : public Component {
+		public:
+			CLASS_DECLARATION(CameraController);
 
-		bool Initialize() override;
-		void Update(float dt) override;
-		void ProcessGui();
+			bool Initialize() override;
+			void Update(float deltaTime) override;
 
-	public:
-		float sensitivity = 0.1f;
-		float speed = 3;
-		float yaw = 0;
-		float pitch = 0;
+			void ProcessGUI() override;
+
+		public:
+			float sensitivity = 0.1f;
+			float speed = 3.0f;
+			float yaw = 0.0f;
+			float pitch = 0.0f;
 	};
 }

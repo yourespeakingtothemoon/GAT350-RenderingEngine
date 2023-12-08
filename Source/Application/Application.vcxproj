@@ -86,6 +86,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/WHOLEARCHIVE:Framework %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Bin\$(PlatformTarget)\$(Configuration)\$(ProjectName)\*.exe" "$(SolutionDir)Build" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -103,6 +106,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/WHOLEARCHIVE:Framework %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Bin\$(PlatformTarget)\$(Configuration)\$(ProjectName)\*.exe" "$(SolutionDir)Build" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -116,6 +122,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/WHOLEARCHIVE:Framework %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Bin\$(PlatformTarget)\$(Configuration)\$(ProjectName)\*.exe" "$(SolutionDir)Build" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -133,6 +142,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalOptions>/WHOLEARCHIVE:Framework %(AdditionalOptions)</AdditionalOptions>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)Bin\$(PlatformTarget)\$(Configuration)\$(ProjectName)\*.exe" "$(SolutionDir)Build" /Y</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -172,22 +184,29 @@
   <ItemGroup>
     <None Include="..\..\Build\Assets\Fantasy\fantasy.mtrl" />
     <None Include="..\..\Build\Assets\Fantasy\fantasy_cel.mtrl" />
+    <None Include="..\..\Build\Assets\Materials\basic.mtrl" />
     <None Include="..\..\Build\Assets\Materials\cel.mtrl" />
     <None Include="..\..\Build\Assets\Materials\framebuffer.mtrl" />
     <None Include="..\..\Build\Assets\Materials\grid.mtrl" />
+    <None Include="..\..\Build\Assets\Materials\multi.mtrl" />
     <None Include="..\..\Build\Assets\Materials\ogre.mtrl" />
     <None Include="..\..\Build\Assets\Materials\phong.mtrl" />
-    <None Include="..\..\Build\Assets\Materials\postprocess.mtrl" />
+    <None Include="..\..\Build\Assets\Materials\post_process.mtrl" />
     <None Include="..\..\Build\Assets\Materials\quad.mtrl" />
     <None Include="..\..\Build\Assets\Materials\reflection.mtrl" />
     <None Include="..\..\Build\Assets\Materials\refraction.mtrl" />
+    <None Include="..\..\Build\Assets\Materials\cliff_skybox.mtrl" />
     <None Include="..\..\Build\Assets\Materials\skybox.mtrl" />
     <None Include="..\..\Build\Assets\Materials\sprite.mtrl" />
     <None Include="..\..\Build\Assets\Materials\squirrel.mtrl" />
+    <None Include="..\..\Build\Assets\Materials\squirrel_cel.mtrl" />
     <None Include="..\..\Build\Assets\Materials\tree.mtrl" />
+    <None Include="..\..\Build\Assets\Materials\ui_camera.mtrl" />
     <None Include="..\..\Build\Assets\Materials\ui_light.mtrl" />
     <None Include="..\..\Build\Assets\Scenes\scene.json" />
+    <None Include="..\..\Build\Assets\Scenes\scene_cel.json" />
     <None Include="..\..\Build\Assets\Scenes\scene_editor.json" />
+    <None Include="..\..\Build\Assets\Scenes\scene_final.json" />
     <None Include="..\..\Build\Assets\Scenes\scene_framebuffer.json" />
     <None Include="..\..\Build\Assets\Scenes\scene_shadow.json" />
     <None Include="..\..\Build\Assets\Shaders\cubemap.frag" />
@@ -196,6 +215,7 @@
     <None Include="..\..\Build\Assets\Shaders\lit_phong.vert" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong_cel.frag" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong_cel.prog" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_cel.vert" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.frag" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.prog" />
     <None Include="..\..\Build\Assets\Shaders\lit_phong_normal.vert" />
@@ -203,14 +223,12 @@
     <None Include="..\..\Build\Assets\Shaders\lit_texture.prog" />
     <None Include="..\..\Build\Assets\Shaders\lit_texture.vert" />
     <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.frag" />
-    <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.prog" />
     <None Include="..\..\Build\Assets\Shaders\lit_texture_gouraud.vert" />
     <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.frag" />
     <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.prog" />
-    <None Include="..\..\Build\Assets\Shaders\multi_lit_texture.vert" />
-    <None Include="..\..\Build\Assets\Shaders\postprocess.frag" />
-    <None Include="..\..\Build\Assets\Shaders\postprocess.prog" />
-    <None Include="..\..\Build\Assets\Shaders\postprocess.vert" />
+    <None Include="..\..\Build\Assets\Shaders\post_process.frag" />
+    <None Include="..\..\Build\Assets\Shaders\post_process.prog" />
+    <None Include="..\..\Build\Assets\Shaders\post_process.vert" />
     <None Include="..\..\Build\Assets\Shaders\reflection.prog" />
     <None Include="..\..\Build\Assets\Shaders\reflection.vert" />
     <None Include="..\..\Build\Assets\Shaders\refraction.prog" />
@@ -237,9 +255,4 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties _1_1_4_1_1_4Build_4Assets_4Materials_4phong_1mtrl__JsonSchema="https://download.stackhawk.com/hawk/jsonschema/hawkconfig.json" />
-    </VisualStudio>
-  </ProjectExtensions>
 </Project>

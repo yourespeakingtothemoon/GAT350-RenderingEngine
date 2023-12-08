@@ -10,12 +10,10 @@
 
 #include "Components/RenderComponent.h"
 #include "Components/ModelComponent.h"
+#include "Components/RotateComponent.h"
+#include "Components/LightComponent.h"
 #include "Components/CameraComponent.h"
 #include "Components/CameraController.h"
-
-#include "Components/LightComponent.h"
-
-#include "Components/RotateComponent.h"
 
 #include "Components/PhysicsComponent.h"
 #include "Components/EnginePhysicsComponent.h"

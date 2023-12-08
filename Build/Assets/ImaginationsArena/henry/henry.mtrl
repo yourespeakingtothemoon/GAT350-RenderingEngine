@@ -1,0 +1,14 @@
+{
+  "program":"imaginationsarena/shaders/lit_phong_cel.prog",
+  "albedoTexture":"imaginationsarena/henry/diffuse.png",
+  "emissiveTexture":"imaginationsarena/henry/emissive.png",
+  "normalTexture":"imaginationsarena/henry/normal.png",
+  "color":[
+      1,
+      1,
+      1,
+      1
+    ],
+  "tiling": [ 1, 1 ],
+  "offset": [ 0, 0 ]
+}

@@ -1,7 +1,9 @@
 #pragma once
-#include "Framework/Object.h"
+
 #include <string>
 #include <memory>
+
+#include "Framework/Object.h"
 
 namespace nc
 {

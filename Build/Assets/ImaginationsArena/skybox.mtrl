@@ -1,0 +1,12 @@
+{
+	"program" : "Shaders/skybox.prog",
+	"cubemap" : "forest_cubemap",
+	"cubemaps": [
+		"imaginationsarena/forest_cubemap/posx.jpg",
+		"imaginationsarena/forest_cubemap/negx.jpg",
+		"imaginationsarena/forest_cubemap/posy.jpg",
+		"imaginationsarena/forest_cubemap/negy.jpg",
+		"imaginationsarena/forest_cubemap/posz.jpg",
+		"imaginationsarena/forest_cubemap/negz.jpg"
+	]
+}

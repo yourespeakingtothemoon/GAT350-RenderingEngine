@@ -1,0 +1,12 @@
+{
+	"program" : "Shaders/skybox.prog",
+	"cubemap" : "cliff_cubemap",
+	"cubemaps" : [
+		"Textures/hl_cliff_cubemap/cliff_rt.bmp",
+		"Textures/hl_cliff_cubemap/cliff_lf.bmp",
+		"Textures/hl_cliff_cubemap/cliff_up.bmp",
+		"Textures/hl_cliff_cubemap/cliff_dn.bmp",
+		"Textures/hl_cliff_cubemap/cliff_bk.bmp",
+		"Textures/hl_cliff_cubemap/cliff_ft.bmp"
+	]
+}

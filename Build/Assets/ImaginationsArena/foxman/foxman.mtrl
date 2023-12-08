@@ -1,0 +1,14 @@
+{
+  "program":"imaginationsarena/shaders/lit_phong_cel.prog",
+  "albedoTexture":"imaginationsarena/foxman/diffuse.png",
+  "emissiveTexture":"imaginationsarena/foxman/emissive.png",
+  "normalTexture":"imaginationsarena/foxman/normal.png",
+  "color":[
+      1,
+      1,
+      1,
+      1
+    ],
+  "tiling": [ 1, 1 ],
+  "offset": [ 0, 0 ]
+}

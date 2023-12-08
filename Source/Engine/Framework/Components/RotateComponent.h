@@ -1,18 +1,18 @@
 #pragma once
+
 #include "Component.h"
-#include "Renderer/Program.h"
-#include "Core/Math/Transform.h"
 
 namespace nc {
 	class RotateComponent : public Component {
-	public:
-		CLASS_DECLARATION(RotateComponent)
+		public:
+			CLASS_DECLARATION(RotateComponent);
 
-		bool Initialize() override;
-		void Update(float dt) override;
+			bool Initialize() override;
+			void Update(float deltaTime) override;
 
-		void ProcessGui() override;
-	public:
-		glm::vec3 euler{ 0 };
+			void ProcessGUI() override;
+
+		public:
+			glm::vec3 euler = glm::vec3(0);
 	};
 }

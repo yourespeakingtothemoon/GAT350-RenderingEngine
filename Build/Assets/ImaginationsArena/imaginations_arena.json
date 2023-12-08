@@ -1,0 +1,620 @@
+{
+	"actors" : [
+			{
+				"type" : "Actor",
+				"name" : "skybox",
+				"persistent" : true,
+				"active" : true,
+				"transform" : {
+					"position" : [0, 0, 1],
+					"scale" : [1, 1, 1],
+					"rotation" : [0, 0, 0]
+				},
+				"components" : [
+					{
+						"type" : "ModelComponent",
+						"modelName" : "models/cube.obj",
+						"materialName" : "imaginationsarena/skybox.mtrl",
+						"enableDepth" : false,
+						"castShadows" : false,
+						"cullface" : "front"
+					}
+				]
+			},
+			{
+				"type" : "Actor",
+				"name" : "ground",
+				"persistent" : true,
+				"active" : true,
+				"transform" : {
+					"position" : [-5, 0.5, 5],
+					"scale" : [100, 100, 100],
+					"rotation" : [90, 0, 0]
+				},
+				"components" : [
+					{
+						"type" : "ModelComponent",
+						"modelName" : "models/quad.obj",
+						"materialName" : "imaginationsarena/floor.mtrl"
+					}
+				]
+			},
+
+		{
+			"type" : "Actor",
+			"name" : "gate",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-5.1, 0.5, 8.2],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Gate_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "wall",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-17.5, 1.7, 6],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Wall_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "wall1",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-22.4, 1.7, 6],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Wall_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "wall2",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [2.2, 1.7, 6],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Wall_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "wall3",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [7.1, 1.7, 6],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Wall_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "banner",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [6.8, 1.6, 6.4],
+				"scale" : [0.5, 0.5, 0.5],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Banner_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "banner1",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-17.1, 1.6, 6.4],
+				"scale" : [0.5, 0.5, 0.5],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Banner_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "hall",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-23.8, 1.7, -31.6],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 90, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Hall_03.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "keep",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [9.8, 1.7, -31.2],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Keep_02.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "tower",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [16, -1.3, 3],
+				"scale" : [0.75, 0.75, 0.75],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Tower_02.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "tower",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-26.2, -1.3, 3],
+				"scale" : [0.75, 0.75, 0.75],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Castle_Tower_02.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "house1",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-33, 0.5, 35.1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 112, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_House_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "house2",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [11.8, 0.5, 61.6],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 226, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_House_02.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "house3",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [14.5, 0.5, 45.8],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 273, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_House_03.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "blacksmithBldg",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-24, 0.5, 66.7],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 505, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Blacksmith_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "houseofthelord",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-37.9, 0.5, 49.7],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 92, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Church_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "stable",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [11.4, 0.5, 26.1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 297, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Stables_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "tavern",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-31.6, 0.5, 18.5],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 80, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Tavern_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Windmill",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [10, 0.5, 90],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Windmill_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "market",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-3.5, 0.5, 81.8],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/architecture/SF_Bld_Market_01.obj",
+					"materialName" : "imaginationsarena/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "dragon",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-11.4, 1, 46.3],
+				"scale" : [20, 20, 20],
+				"rotation" : [-90, 0, 190]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/dragon/dragon3.fbx",
+					"materialName" : "imaginationsarena/dragon/dragon.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Henry",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-16.3, 0.4, 25.6],
+				"scale" : [0.1, 0.1, 0.1],
+				"rotation" : [-90, 0, 178]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/henry/henry.fbx",
+					"materialName" : "imaginationsarena/henry/henry.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "The Warden",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-19.6, 0.4, 28.3],
+				"scale" : [0.1, 0.1, 0.1],
+				"rotation" : [-90, 8, 137]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/owlman/owlman.fbx",
+					"materialName" : "imaginationsarena/owlman/owlman.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Robin Hood",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-12.4, 0.4, 24.4],
+				"scale" : [0.1, 0.1, 0.1],
+				"rotation" : [-90, 0, 3]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/foxman/foxman.fbx",
+					"materialName" : "imaginationsarena/foxman/foxman.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "dixon_tigonderoga",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [17.4, 14.5, 64.2],
+				"scale" : [3, 3, 3],
+				"rotation" : [28, -138, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/pencil/pencil.obj",
+					"materialName" : "imaginationsarena/pencil/pencil.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "dice",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-1.2, 4.8, 23.7],
+				"scale" : [0.2,0.2,0.2],
+				"rotation" : [-42, 126, 119]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "imaginationsarena/dice.obj",
+					"materialName" : "imaginationsarena/dice.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "lucy",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-0.6, 13.4, 4.4],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 180, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "models/drachen.fbx",
+					"materialName" : "imaginationsarena/drachen.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "MainLight",
+			"persistent" : true,
+			"transform" : {
+				"position" : [-17, 42, 33.3],
+				"scale" : [1, 1, 1],
+				"rotation" : [143, -124, 12]
+			},
+			"components" : [
+				{
+					"type" : "LightComponent",
+					"lightType" : "Directional",
+					"color" : [1, 1, 1],
+					"intensity" : 0.1,
+					"range" : 20,
+					"innerAngle" : 10,
+					"outerAngle" : 30,
+					"castShadows" : true
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "SpotDragon",
+			"persistent" : true,
+			"transform" : {
+				"position" : [-14.4, 5.7, 42.8],
+				"scale" : [1, 1, 1],
+				"rotation" : [161, 0, 14]
+			},
+			"components" : [
+				{
+					"type" : "LightComponent",
+					"lightType" : "Spot",
+					"color" : [1, 0.305, 0.305],
+					"intensity" : 0.3,
+					"range" : 25.4,
+					"innerAngle" : 30,
+					"outerAngle" : 70,
+					"castShadows" : true
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Spot2",
+			"persistent" : true,
+			"transform" : {
+				"position" : [-2.6, 6.7, 23.8],
+				"scale" : [1, 1, 1],
+				"rotation" : [80, -363, -138]
+			},
+			"components" : [
+				{
+					"type" : "LightComponent",
+					"lightType" : "Spot",
+					"color" : [1, 1, 1],
+					"intensity" : 0.1,
+					"range" : 8.3,
+					"innerAngle" : 26,
+					"outerAngle" : 82,
+					"castShadows" : true
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "camera",
+			"persistent" : true,
+			"transform" : {
+				"position" : [0, 0, 3],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "CameraComponent",
+					"fov" : 70,
+					"aspect_ratio" : 1.778,
+					"near_clip" : 0.1,
+					"far_clip" : 100
+				},
+				{
+					"type" : "CameraController",
+					"speed" : 2.5,
+					"sensitivity" : 0.25
+				}
+			]
+		}
+	]
+}

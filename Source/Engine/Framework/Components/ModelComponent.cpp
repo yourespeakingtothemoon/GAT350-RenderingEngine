@@ -1,58 +1,65 @@
 #include "ModelComponent.h"
-#include "Framework/Actor.h"
+
 #include "Framework/Resource/ResourceManager.h"
 
+#include "Core/StringUtils.h"
+#include "Framework/Actor.h"
+
 namespace nc {
-	CLASS_DEFINITION(ModelComponent)
+	CLASS_DEFINITION(ModelComponent);
 
 	bool ModelComponent::Initialize() {
-		if (!modelName.empty()) {
-			m_model = GET_RESOURCE(Model, modelName);
-			
+		if(!modelName.empty()) {
+			model = GET_RESOURCE(Model, modelName);
 		}
-		if (m_model && !materialName.empty()) {
-			m_material = (GET_RESOURCE(Material, materialName));
+
+		if(model != nullptr && !materialName.empty()) {
+			material = GET_RESOURCE(Material, materialName);
 		}
 
 		return true;
 	}
 
-	void ModelComponent::Update(float dt)
-	{
+	void ModelComponent::Update(float dt) {
 	}
 
 	void ModelComponent::Draw(Renderer& renderer) {
-		m_material->Bind();
-		m_material->GetProgram()->SetUniform("model", m_owner->transform.GetMatrix());
+		material->Bind();
+		material->GetProgram()->SetUniform("model", m_owner->transform.GetMatrix());
 
-		glDepthMask(enableDepth);
-		glCullFace(cullface);
+		glDepthMask(this->enableDepth);
+		glCullFace(this->cullface);
 
-		m_model->Draw();
-		//m_model->Draw(renderer, m_owner->transform);
+		model->Draw();
 	}
 
-	void nc::ModelComponent::ProcessGui() {
-		(m_model) ? ImGui::Text("Model: %s", m_model->name.c_str()) : ImGui::Text("None");
-		Gui::GetDialogResource<Model>(m_model, "ModelTextureDialog", "Open Model", "Model file (*.obj;*.fbx){.obj,.fbx},.*");
+	void ModelComponent::ProcessGUI() {
+		(model != nullptr) ? ImGui::Text("Model: %s", model->name.c_str()) : ImGui::Text("None");
+		Gui::GetDialogResource<Model>(model, "ModelTextureDialog", "Open Model", "Model file (*.obj;*.fbx){.obj,.fbx},.*");
 
-		(m_material) ? ImGui::Text("Material: %s", m_material->name.c_str()) : ImGui::Text("None");
-		Gui::GetDialogResource<Material>(m_material, "MaterialTextureDialog", "Open Material", "Material file (*.mtrl){.mtrl},.*");
+		(material != nullptr) ? ImGui::Text("Material: %s", material->name.c_str()) : ImGui::Text("None");
+		Gui::GetDialogResource<Material>(material, "MaterialTextureDialog", "Open Material", "Material file (*.mtrl){.mtrl},.*");
 
-		ImGui::Checkbox("Cast Shadow?", &castShadow);
-		ImGui::Checkbox("Enable Depth", &enableDepth);
+		ImGui::Checkbox("Cast Shadows", &(this->castShadows));
+		ImGui::Checkbox("Enable Depth", &(this->enableDepth));
 	}
 
 	void ModelComponent::Read(const json_t& value) {
 		READ_DATA(value, modelName);
 		READ_DATA(value, materialName);
 
+		READ_DATA(value, castShadows);
 		READ_DATA(value, enableDepth);
-		READ_DATA(value, castShadow);
 
-		std::string cullfaceName;
-		if (READ_NAME_DATA(value, "cullface", cullfaceName)) {
-			if (IsEqualIgnoreCase(cullfaceName, "front")) cullface = GL_FRONT;
+		std::string cullfaceValue;
+		if(READ_NAME_DATA(value, "cullface", cullfaceValue)) {
+			if(StringUtils::IsEqualIgnoreCase(cullfaceValue, "front")) {
+				cullface = GL_FRONT;
+			} else if(StringUtils::IsEqualIgnoreCase(cullfaceValue, "back")) {
+				cullface = GL_BACK;
+			} else if(StringUtils::IsEqualIgnoreCase(cullfaceValue, "front_and_back")) {
+				cullface = GL_FRONT_AND_BACK;
+			}
 		}
 	}
 }

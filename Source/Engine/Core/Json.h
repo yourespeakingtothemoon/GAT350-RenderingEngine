@@ -1,9 +1,11 @@
 #pragma once
-#include "Math/Rect.h"
+
 #include <rapidjson/include/rapidjson/document.h>
 #include <glm/glm/glm.hpp>
 #include <string>
 #include <vector>
+
+#include "Math/Rect.h"
 
 #define READ_DATA(value, data)						nc::Json::Read(value, #data, data)
 #define READ_DATA_REQUIRED(value, data)				nc::Json::Read(value, #data, data, true)

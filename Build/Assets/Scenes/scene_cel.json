@@ -1,0 +1,116 @@
+{
+	"actors" : [
+		{
+			"type" : "Actor",
+			"name" : "skybox",
+			"persistent" : true,
+			"active" : false,
+			"transform" : {
+				"position" : [0, 0, 1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "models/cube.obj",
+					"materialName" : "materials/skybox.mtrl",
+					"enableDepth" : false,
+					"castShadows" : false,
+					"cullface" : "front"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "Lucy",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [0, -1, 1],
+				"scale" : [0.4, 0.4, 0.4],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "models/drachen.fbx",
+					"materialName" : "materials/drachen.mtrl"
+				},
+				{
+					"type" : "RotateComponent",
+					"rotation" : [0, 0, 0]
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "ground",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-5, -1, 5],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "fantasy/obj/SF_Env_Tile_Grass_01.obj",
+					"materialName" : "fantasy/fantasy.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "light",
+			"persistent" : true,
+			"transform" : {
+				"position" : [0, 3, 0],
+				"scale" : [0.1, 0.1, 0.1],
+				"rotation" : [115, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "LightComponent",
+					"lightType" : "Directional",
+					"color" : [1, 1, 1],
+					"intensity" : 1,
+					"range" : 20,
+					"innerAngle" : 10,
+					"outerAngle" : 30,
+					"castShadows" : true
+				},
+				{
+					"type" : "ModelComponent",
+					"modelName" : "models/quad.obj",
+					"materialName" : "materials/ui_light.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "camera",
+			"persistent" : true,
+			"transform" : {
+				"position" : [0, 0, 3],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "CameraComponent",
+					"fov" : 70,
+					"aspect_ratio" : 1.778,
+					"near_clip" : 0.1,
+					"far_clip" : 100
+				},
+				{
+					"type" : "CameraController",
+					"speed" : 2.5,
+					"sensitivity" : 0.25
+				}
+			]
+		}
+	]
+}

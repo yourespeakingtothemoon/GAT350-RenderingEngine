@@ -1,153 +1,160 @@
 {
-	"actors": [
+	"actors" : [
 		{
-			"type": "Actor",
-			"name": "skybox",
-			"persistent": true,
-			"transform": {
-				"position": [ 0, 0, 0 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 0, 0 ]
+			"type" : "Actor",
+			"name" : "skybox",
+			"persistent" : true,
+			"transform" : {
+				"position" : [0, 0, 1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
 			},
-			"components": [
+			"components" : [
 				{
-					"type": "ModelComponent",
-					"modelName": "models/cube.obj",
-					"materialName": "materials/skybox.mtrl",
-					"enableDepth": false,
-					"cullface": "front"
+					"type" : "ModelComponent",
+					"modelName" : "models/cube.obj",
+					"materialName" : "materials/skybox.mtrl",
+					"enableDepth" : false,
+					"cullface" : "front"
 				}
 			]
 		},
 		{
-			"type": "Actor",
-			"name": "actor1",
-			"persistent": true,
-			"active": false,
-			"transform": {
-				"position": [ 0, 0, 0 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 0, 0 ]
+			"type" : "Actor",
+			"name" : "actor1",
+			"persistent" : true,
+			"active" : false,
+			"transform" : {
+				"position" : [1.5, 0, 1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
 			},
-			"components": [
+			"components" : [
 				{
-					"type": "ModelComponent",
-					"modelName": "models/ogre.obj",
-					"materialName": "materials/refraction.mtrl"
+					"type" : "ModelComponent",
+					"modelName" : "models/ogre.obj",
+					"materialName" : "materials/refraction.mtrl"
 				}
 			]
 		},
 		{
-			"type": "Actor",
-			"name": "actor2",
-			"persistent": true,
-			"active": false,
-			"transform": {
-				"position": [ 1, 0, 0 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 0, 0 ]
+			"type" : "Actor",
+			"name" : "actor2",
+			"persistent" : true,
+			"active" : false,
+			"transform" : {
+				"position" : [0, 0, 1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
 			},
-			"components": [
+			"components" : [
 				{
-					"type": "ModelComponent",
-					"modelName": "models/ogre.obj",
-					"materialName": "materials/reflection.mtrl"
+					"type" : "ModelComponent",
+					"modelName" : "models/ogre.obj",
+					"materialName" : "materials/reflection.mtrl"
 				}
 			]
 		},
 		{
-			"type": "Actor",
-			"name": "actor3",
-			"persistent": true,
-			"transform": {
-				"position": [ -1, 0, 0 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 0, 0 ]
+			"type" : "Actor",
+			"name" : "actor3",
+			"persistent" : true,
+			"active" : true,
+			"transform" : {
+				"position" : [-1.5, 0, 1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
 			},
-			"components": [
+			"components" : [
 				{
-					"type": "ModelComponent",
-					"modelName": "models/ogre.obj",
-					"materialName": "materials/ogre.mtrl"
-				}
-			]
-		},
-		{
-			"type": "Actor",
-			"name": "sprite",
-			"persistent": true,
-			"transform": {
-				"position": [ 0, 0, 0 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 0, 0 ]
-			},
-			"components": [
-				{
-					"type": "ModelComponent",
-					"modelName": "models/quad.obj",
-					"materialName": "materials/sprite.mtrl"
-				}
-			]
-		},
-		{
-			"type": "Actor",
-			"name": "tree",
-			"persistent": true,
-			"prototype": true,
-			"transform": {
-				"position": [ 1, 0, 0 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 0, 0 ]
-			},
-			"components": [
-				{
-					"type": "ModelComponent",
-					"modelName": "models/quad.obj",
-					"materialName": "materials/tree.mtrl"
-				}
-			]
-		},
-		{
-			"type": "Actor",
-			"name": "light",
-			"persistent": true,
-			"transform": {
-				"position": [ 3, 3, 3 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 0, 0 ]
-			},
-			"components": [
-				{
-					"type": "LightComponent",
-					"lightType": "Point",
-					"color": [ 1, 1, 1 ],
-					"intensity": 1,
-					"range": 20,
-					"innerAngle": 10,
-					"outerAngle": 30
-				}
-			]
-		},
-		{
-			"type": "Actor",
-			"name": "camera",
-			"persistent": true,
-			"transform": {
-				"position": [ 0, 0, 2 ],
-				"scale": [ 1, 1, 1 ],
-				"rotation": [ 0, 180, 0 ]
-			},
-			"components": [
-				{
-					"type": "CameraComponent",
-					"fov": 70,
-					"near": 0.1,
-					"far": 100
+					"type" : "ModelComponent",
+					"modelName" : "models/ogre.obj",
+					"materialName" : "materials/ogre.mtrl"
 				},
 				{
-					"type": "CameraController",
-					"speed": 5,
-					"sensitivity": 0.5
+					"type" : "RotateComponent",
+					"rotation" : [0, 0, 0]
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "sprite1",
+			"persistent" : true,
+			"active" : false,
+			"transform" : {
+				"position" : [2, 0, 1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "models/quad.obj",
+					"materialName" : "materials/sprite.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "tree",
+			"persistent" : true,
+			"prototype" : true,
+			"transform" : {
+				"position" : [0, 0, 1],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "ModelComponent",
+					"modelName" : "models/quad.obj",
+					"materialName" : "materials/tree.mtrl"
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "light1",
+			"persistent" : true,
+			"transform" : {
+				"position" : [3, 3, 3],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 0, 0]
+			},
+			"components" : [
+				{
+					"type" : "LightComponent",
+					"lightType" : "Point",
+					"color" : [1, 1, 1],
+					"intensity" : 1,
+					"range" : 20,
+					"innerAngle" : 10,
+					"outerAngle" : 30
+				}
+			]
+		},
+		{
+			"type" : "Actor",
+			"name" : "camera1",
+			"persistent" : true,
+			"transform" : {
+				"position" : [0, 0, 3],
+				"scale" : [1, 1, 1],
+				"rotation" : [0, 180, 0]
+			},
+			"components" : [
+				{
+					"type" : "CameraComponent",
+					"fov" : 70,
+					"aspect_ratio" : 1.778,
+					"near_clip" : 0.1,
+					"far_clip" : 100
+				},
+				{
+					"type" : "CameraController",
+					"speed" : 2.5,
+					"sensitivity" : 0.25
 				}
 			]
 		}

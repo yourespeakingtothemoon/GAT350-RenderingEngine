@@ -1,12 +1,12 @@
 {
-  "program": "shaders/refraction.prog",
-  "cubemap": "Yokohama",
-  "cubemaps": [
-    "textures/Yokohama/posx.jpg",
-    "textures/Yokohama/negx.jpg",
-    "textures/Yokohama/posy.jpg",
-    "textures/Yokohama/negy.jpg",
-    "textures/Yokohama/posz.jpg",
-    "textures/Yokohama/negz.jpg"
-  ]
+	"program" : "Shaders/refraction.prog",
+	"cubemap" : "night_cubemap",
+	"cubemaps" : [
+		"Textures/night_cubemap/posx.jpg",
+		"Textures/night_cubemap/negx.jpg",
+		"Textures/night_cubemap/posy.jpg",
+		"Textures/night_cubemap/negy.jpg",
+		"Textures/night_cubemap/posz.jpg",
+		"Textures/night_cubemap/negz.jpg"
+	]
 }

@@ -1,55 +1,88 @@
 #include "World01.h"
+
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
 #include "Input/InputSystem.h"
 
 namespace nc {
-    bool World01::Initialize() {
-        for (int i = 0; i < 10; i++) {
-            m_positions.push_back({ randomf(-1, 1), randomf(-1, 1) });
-        }
-        return true;
-    }
+	bool World01::Initialize() {
+		return true;
+	}
 
-    void World01::Shutdown() {
-    }
+	void World01::Shutdown() {
+	}
 
-    void World01::Update(float dt) {
-        m_angle += dt * 3;
-        m_position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? -dt : 0;
-        m_position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ?  dt : 0;
-        m_time += dt;
-    }
+	void World01::Update(float deltaTime) {
+		this->position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? deltaTime : 0;
+		this->position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? -deltaTime : 0;
 
-    void World01::Draw(Renderer& renderer) {
-        // pre-render
-        renderer.BeginFrame();
+		this->position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? deltaTime : 0;
+		this->position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? -deltaTime : 0;
 
-        // render
-        glPushMatrix();
-        glTranslatef(m_position.x, m_position.y, 0);
-        glRotatef(m_angle, 0, 0, 1);
-        glScalef((sin(m_time) + 1), 1, 1);
-        glBegin(GL_TRIANGLE_FAN);
+		this->angle += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_LEFT) ? deltaTime * 90 : 0;
+		this->angle += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_RIGHT) ? -deltaTime * 90 : 0;
 
-        //glColor3f(1, 1, 0);
-        //glVertex2f(0, 0);
-        glColor3f(1, 0, 0);
-        glVertex2f(-0.5f, 0);
-        glColor3f(0, 1, 0);
-        glVertex2f(0, 0.5f);
-        glColor3f(0, 0, 1);
-        glVertex2f(0.5f, 0);
-        glColor3f(1, 0, 1);
-        glVertex2f(0.25f, -0.5f);
-        glColor3f(0, 1, 1);
-        glVertex2f(-0.25f, -0.5f);
+		this->time += deltaTime;
+	}
 
-        glEnd();
+	void World01::Draw(Renderer& renderer) {
+		// pre-render
+		renderer.BeginFrame();
 
-        glPopMatrix();
+		// render
+		glPushMatrix();
 
-        // post-render
-        renderer.EndFrame();
-    }
+		glTranslatef(this->position.x, this->position.y, 0.0f);
+		glRotatef(this->angle, 0.0f, 0.0f, 1.0f);
+		glScalef(Clamp(((std::sinf(this->time * 5) + 1) * 0.5f), 0.01f, 1.0f), 1.0f, 1.0f);
+
+		glBegin(GL_QUADS);
+
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glVertex2f(-0.5f, -0.5f);
+
+		glColor3f(0.0f, 1.0f, 0.0f);
+		glVertex2f(-0.5f, 0.5f);
+
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glVertex2f(0.5f, 0.5f);
+
+		glColor3f(1.0f, 1.0f, 0.0f);
+		glVertex2f(0.5f, -0.5f);
+
+		glEnd();
+
+		glPopMatrix();
+
+		glPushMatrix();
+
+		glTranslatef(0, 0.64f, 0);
+
+		glBegin(GL_POLYGON);
+
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glVertex2f(-0.8f, -0.25f);
+
+		glColor3f(0.5f, 0.0f, 1.0f);
+		glVertex2f(-0.6f, -0.25f);
+
+		glColor3f(0.5f, 0.0f, 1.0f);
+		glVertex2f(-0.45f, 0.0f);
+
+		glColor3f(0.5f, 0.0f, 1.0f);
+		glVertex2f(-0.6f, 0.25f);
+
+		glColor3f(0.5f, 0.0f, 1.0f);
+		glVertex2f(-0.8f, 0.25f);
+
+		glColor3f(0.0f, 0.0f, 1.0f);
+		glVertex2f(-0.95f, 0.0f);
+
+		glEnd();
+
+		glPopMatrix();
+
+		// post-render
+		renderer.EndFrame();
+	}
 }

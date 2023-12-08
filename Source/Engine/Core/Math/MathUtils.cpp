@@ -1,8 +1,7 @@
 #include "MathUtils.h"
 
 namespace nc {
-    glm::vec3 QuaternionToEuler(const glm::quat& q)
-    {
+    glm::vec3 QuaternionToEuler(const glm::quat& q) {
         glm::vec3 euler;
 
         // if the input quaternion is normalized, this is exactly one. Otherwise, this acts as a correction factor for the quaternion's not-normalizedness
@@ -11,19 +10,17 @@ namespace nc {
         // this will have a magnitude of 0.5 or greater if and only if this is a singularity case
         float test = q.x * q.w - q.y * q.z;
 
-        if (test > 0.4995f * unit) // singularity at north pole
+        if(test > 0.4995f * unit) // singularity at north pole
         {
             euler.x = Pi / 2;
             euler.y = 2.0f * std::atan2(q.y, q.x);
             euler.z = 0;
-        }
-        else if (test < -0.4995f * unit) // singularity at south pole
+        } else if(test < -0.4995f * unit) // singularity at south pole
         {
             euler.x = -Pi / 2;
             euler.y = -2.0f * std::atan2(q.y, q.x);
             euler.z = 0;
-        }
-        else // no singularity - this is the majority of cases
+        } else // no singularity - this is the majority of cases
         {
             euler.x = std::asin(2.0f * (q.w * q.x - q.y * q.z));
             euler.y = std::atan2(2.0f * q.w * q.y + 2.0f * q.z * q.x, 1 - 2.0f * (q.x * q.x + q.y * q.y));
@@ -34,13 +31,12 @@ namespace nc {
         euler = glm::degrees(euler);
 
         //...and then ensure the degree values are between 0 and 360
-        euler = glm::modf(glm::vec3{ 360.0f }, euler);
+        euler = glm::modf(glm::vec3{360.0f}, euler);
 
         return euler;
     }
 
-    glm::quat nc::EulerToQuaternion(const glm::vec3& euler)
-    {
+    glm::quat nc::EulerToQuaternion(const glm::vec3& euler) {
         float xOver2 = glm::radians(euler.x) * 0.5f;
         float yOver2 = glm::radians(euler.y) * 0.5f;
         float zOver2 = glm::radians(euler.z) * 0.5f;

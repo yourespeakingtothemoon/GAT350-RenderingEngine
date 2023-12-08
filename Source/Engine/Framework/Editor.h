@@ -2,12 +2,14 @@
 
 namespace nc {
 	class Editor {
-	public:
-		void Update();
-		void ProcessGui(class Scene* scene);
+		public:
+			void Update();
 
-	private:
-		bool m_active = true;
-		class Object* m_selected = nullptr;
+			void ProcessGUI(class Scene* scene);
+
+		private:
+			bool active = true;
+			class Object* selectedObject = nullptr;
+			class Object* renameObject = nullptr;
 	};
 }

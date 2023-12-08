@@ -1,21 +1,27 @@
 #pragma once
+
 #include "Framework/System.h"
-#include "Font.h"
-#include "Program.h"
-#include "Shader.h"
-#include "Texture.h"
-#include "Cubemap.h"
-#include "Gui.h"
-#include "VertexBuffer.h"
-#include "Material.h"
-#include "Model.h"
-#include "Framebuffer.h"
-#include <glad/include/glad/glad.h>
-#include <SDL2-2.28.4/include/SDL.h>
+
 #include <string>
 
-namespace nc {
-	class Renderer : public ISystem {
+#include <glad/include/glad/glad.h>
+#include <SDL2-2.28.4/include/SDL.h>
+
+#include "Font.h"
+#include "Model.h"
+#include "Texture.h"
+#include "Cubemap.h"
+#include "VertexBuffer.h"
+#include "Framebuffer.h"
+#include "Shader.h"
+#include "Program.h"
+#include "Material.h"
+#include "Gui.h"
+
+namespace nc
+{
+	class Renderer : public ISystem
+	{
 	public:
 		Renderer() = default;
 		~Renderer() = default;
@@ -26,7 +32,7 @@ namespace nc {
 		void Update() {}
 
 		void CreateWindow(const std::string& title, int width, int height);
-		void BeginFrame(const glm::vec3& color = { 0, 0, 0 });
+		void BeginFrame(const glm::vec3& color = glm::vec3(0));
 		void EndFrame();
 
 		void ClearDepth();
@@ -43,8 +49,8 @@ namespace nc {
 		int GetWidth() const { return m_width; }
 		int GetHeight() const { return m_height; }
 
-		friend class Texture;
 		friend class Gui;
+		friend class Texture;
 
 	private:
 		int m_width = 0;
@@ -52,6 +58,6 @@ namespace nc {
 
 		SDL_Renderer* m_renderer = nullptr;
 		SDL_Window* m_window = nullptr;
-		SDL_GLContext m_context = nullptr;
+		SDL_GLContext context = nullptr;
 	};
 }

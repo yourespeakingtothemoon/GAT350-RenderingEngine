@@ -1,37 +1,39 @@
 #pragma once
+
 #include "Component.h"
+
 #include "Renderer/Program.h"
 
-namespace nc
-{
+namespace nc {
 	class CameraComponent : public Component {
-	public:
-		enum eProjectionType {
-			Perspective,
-			Orthographic
-		};
-	public:
-		CLASS_DECLARATION(CameraComponent)
+		public:
+			enum projectionType {
+				Perspective,
+				Orthographic
+			};
 
-		bool Initialize() override;
-		void Update(float dt) override;
-		void ProcessGui() override;
+		public:
+			CLASS_DECLARATION(CameraComponent);
 
-		void SetPerspective(float fov, float aspect, float near, float far);
-		void SetLookAt(const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up = { 0, 1, 0 });
+			bool Initialize() override;
+			void Update(float deltaTime) override;
+			void ProcessGUI() override;
 
-		void SetProgram(const res_t<Program> program);
+			void SetPerspective(float fov, float aspect, float near, float far);
+			void SetLookAt(const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up = glm::vec3(0, 1, 0));
 
-	public:
-		glm::mat4 projection{ 1 };
-		glm::mat4 view{ 1 };
+			void SetProgram(const res_t<Program> program);
 
-		float fov = 70.0f;
-		float aspect = 0.0f;
-		float near = 0.1f;
-		float far = 100.0f;
+		public:
+			glm::mat4 projection = glm::mat4(1);
+			glm::mat4 view = glm::mat4(1);
 
-		eProjectionType projectionType = Perspective;
-		float size = 8;
+			float fov = 70.0f;
+			float aspect = 0.0f;
+			float near = 0.1f;
+			float far = 100.0f;
+
+			projectionType projectionType = projectionType::Perspective;
+			float size = 8.0f;
 	};
 }

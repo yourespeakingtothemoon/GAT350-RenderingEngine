@@ -1,0 +1,19 @@
+{
+  "program":"imaginationsarena/shaders/lit_phong_norm_refl.prog",
+  "albedoTexture":"Textures/drachen.png",
+  "color":[
+      1,
+      1,
+      1,
+      1
+    ],
+    "specular": [
+   1,
+  1,
+  1
+  ],
+  "shininess": 0.5,
+  "reflectionIntensity": 1.0,
+  "tiling": [ 1, 1 ],
+  "offset": [ 0, 0 ]
+}

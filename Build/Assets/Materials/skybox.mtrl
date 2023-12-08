@@ -1,12 +1,12 @@
 {
-  "program": "shaders/skybox.prog",
-  "cubemap": "Yokohama",
-  "cubemaps": [
-    "textures/Yokohama/posx.jpg",
-    "textures/Yokohama/negx.jpg",
-    "textures/Yokohama/posy.jpg",
-    "textures/Yokohama/negy.jpg",
-    "textures/Yokohama/posz.jpg",
-    "textures/Yokohama/negz.jpg"
-  ]
+	"program" : "Shaders/skybox.prog",
+	"cubemap" : "SaintPetersBasilica",
+	"cubemaps": [
+		"Textures/SaintPetersBasilica/posx.jpg",
+		"Textures/SaintPetersBasilica/negx.jpg",
+		"Textures/SaintPetersBasilica/posy.jpg",
+		"Textures/SaintPetersBasilica/negy.jpg",
+		"Textures/SaintPetersBasilica/posz.jpg",
+		"Textures/SaintPetersBasilica/negz.jpg"
+	]
 }

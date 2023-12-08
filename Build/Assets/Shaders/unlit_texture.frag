@@ -14,6 +14,5 @@ layout(binding = 0) uniform sampler2D tex;
 void main()
 {
 	vec4 texcolor = texture(tex, (texcoord * tiling) + offset);
-	//if (texcolor.a < 0.8) discard;
 	ocolor = texcolor * color;
 }

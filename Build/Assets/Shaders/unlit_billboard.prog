@@ -1,4 +1,4 @@
 {
-	"vertexShader": "shaders/unlit_billboard.vert",
-	"fragmentShader": "shaders/unlit_sprite.frag"
+	"vertexShader" : "shaders/unlit_billboard.vert",
+	"fragmentShader" : "shaders/unlit_sprite.frag"
 }

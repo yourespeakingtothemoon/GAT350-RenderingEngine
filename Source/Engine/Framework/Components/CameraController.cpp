@@ -3,12 +3,10 @@
 #include "Framework/Engine.h"
 #include "Input/InputSystem.h"
 
-namespace nc
-{
-	CLASS_DEFINITION(CameraController)
+namespace nc {
+	CLASS_DEFINITION(CameraController);
 
-	bool CameraController::Initialize()
-	{
+	bool CameraController::Initialize() {
 		glm::vec3 euler = QuaternionToEuler(m_owner->transform.rotation);
 
 		pitch = m_owner->transform.rotation.x;
@@ -17,11 +15,9 @@ namespace nc
 		return true;
 	}
 
-	void CameraController::Update(float dt)
-	{
+	void CameraController::Update(float deltaTime) {
 		// get camera rotation
-		if (ENGINE.GetSystem<InputSystem>()->GetMouseButtonDown(2))
-		{
+		if(ENGINE.GetSystem<InputSystem>()->GetMouseButtonDown(2)) {
 			glm::vec2 axis = ENGINE.GetSystem<InputSystem>()->GetMouseRelative() * sensitivity;
 
 			yaw += axis.x;
@@ -35,33 +31,30 @@ namespace nc
 		forward.z = sin(glm::radians(yaw - 90.0f)) * cos(glm::radians(pitch));
 		forward = glm::normalize(forward);
 
-		glm::mat4 view = glm::lookAt(glm::vec3{ 0.0f }, -forward, glm::vec3{ 0, 1, 0 });
+		glm::mat4 view = glm::lookAt(glm::vec3{0.0f}, -forward, glm::vec3{0, 1, 0});
 		m_owner->transform.rotation = glm::conjugate(glm::quat_cast(view));
 
-		glm::vec3 direction{ 0 };
+		glm::vec3 direction{0};
 
-		if (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A)) direction.x += 1;
-		if (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D)) direction.x -= 1;
-		if (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_E)) direction.y += 1;
-		if (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_Q)) direction.y -= 1;
-		if (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W)) direction.z += 1;
-		if (ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S)) direction.z -= 1;
+		if(ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A)) direction.x += 1;
+		if(ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D)) direction.x -= 1;
+		if(ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_E)) direction.y += 1;
+		if(ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_Q)) direction.y -= 1;
+		if(ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W)) direction.z += 1;
+		if(ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S)) direction.z -= 1;
 
 		// convert world direction space to camera space
 		direction = m_owner->transform.rotation * direction;
-		m_owner->transform.position += direction * (speed * dt);
+		m_owner->transform.position += direction * (speed * deltaTime);
 	}
 
-	void CameraController::ProcessGui()
-	{
-		ImGui::DragFloat("Speed", &speed, 0.1f);
-		ImGui::DragFloat("Sensitivity", &sensitivity, 0.1f);
+	void CameraController::ProcessGUI() {
+		ImGui::DragFloat("Speed", &(this->speed), 0.1f);
+		ImGui::DragFloat("Sensitivity", &(this->sensitivity), 0.01f);
 	}
 
-	void CameraController::Read(const json_t& value)
-	{
+	void CameraController::Read(const json_t& value) {
 		READ_DATA(value, speed);
 		READ_DATA(value, sensitivity);
 	}
-
 }

@@ -1,0 +1,13 @@
+{
+  "program":"imaginationsarena/shaders/lit_phong_normal.prog",
+  "albedoTexture":"imaginationsarena/pencil/pencil_vray_Diffuse.png",
+  "normalTexture":"imaginationsarena/pencil/pencil_vray_Normal.png",
+  "color":[
+      1,
+      1,
+      1,
+      1
+    ],
+  "tiling": [ 1, 1 ],
+  "offset": [ 0, 0 ]
+}

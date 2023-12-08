@@ -1,27 +1,30 @@
 #pragma once
+
 #include "Framework/World.h"
+
 #include "Renderer/Renderer.h"
 #include "Core/Math/Transform.h"
-#include <vector>
 
 namespace nc {
 	class World03 : public World {
-	public:
-		bool Initialize() override;
-		void Shutdown() override;
-		void Update(float dt) override;
-		void Draw(Renderer& renderer) override;
+		public:
+			bool Initialize() override;
+			void Shutdown() override;
+			void Update(float deltaTime) override;
+			void Draw(Renderer& renderer) override;
 
-	private:
-		float m_time;
-		float m_speed = 5;
+		private:
+			//float time = 0.0f;
+			float speed = 5.0f;
 
-		Transform m_transform;
+			//glm::vec2 texOffset = glm::vec2(0);
+			//float texTiling = 1.0f;
 
-		//GLuint m_vao = 0;
-		res_t<Program> m_program;
-		res_t<Texture> m_texture;
-		res_t<Material> m_material;
-		res_t<VertexBuffer> m_vertexBuffer;
+			Transform transform;
+
+			res_t<VertexBuffer> vertexBuffer;
+			res_t<Material> material;
+			res_t<Program> program;
+			res_t<Texture> texture;
 	};
 }

@@ -1,7 +1,9 @@
 #include "InputSystem.h"
 
-namespace nc {
-	bool InputSystem::Initialize() {
+namespace nc
+{
+	bool InputSystem::Initialize()
+	{
 		int numKeys;
 		// get pointer to sdl keyboard states and number of keys
 		const uint8_t* keyboardState = SDL_GetKeyboardState(&numKeys);
@@ -18,12 +20,17 @@ namespace nc {
 		return true;
 	}
 
-	void InputSystem::Shutdown() {
+	void InputSystem::Shutdown()
+	{
+		//
 	}
 
-	void InputSystem::Update() {
+	void InputSystem::Update()
+	{
 		// save previous keyboard state
 		m_prevKeyboardState = m_keyboardState;
+		// save previous mouse position
+		m_prevMousePosition = m_mousePosition;
 
 		// get sdl keyboard state
 		const uint8_t* keyboardState = SDL_GetKeyboardState(nullptr);
@@ -32,8 +39,7 @@ namespace nc {
 
 		int x, y;
 		uint32_t buttons = SDL_GetMouseState(&x, &y);
-		m_prevMousePosition = m_mousePosition;
-		m_mousePosition = glm::vec2{ x , y };
+		m_mousePosition = glm::vec2(x , y);
 
 		m_prevMouseButtonState = m_mouseButtonState;
 		m_mouseButtonState[0] = buttons & SDL_BUTTON_LMASK; // buttons [0001] & [0RML]

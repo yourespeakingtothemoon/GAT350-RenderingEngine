@@ -1,4 +1,5 @@
 #include "Actor.h"
+
 #include "Components/RenderComponent.h"
 
 namespace nc
@@ -73,18 +74,18 @@ namespace nc
 		components.push_back(std::move(component));
 	}
 
-	void Actor::ProcessGui() {
-		ImGui::TextColored({ 0, 1, 0, 1 }, "%s", GetClassName());
+	void Actor::ProcessGUI() {
+		ImGui::TextColored({0, 1, 0, 1}, "%s", GetClassName());
 		ImGui::Text("Name: %s", name.c_str());
 		ImGui::Text("Tag: %s", tag.c_str());
 		ImGui::Checkbox("Active", &active);
+		ImGui::TextColored({1, 1, 0, 1}, "Transform");
 		ImGui::Separator();
-		ImGui::TextColored({ 1, 1, 0, 1 }, "Transform");
-		transform.ProcessGui();
-		for (auto& component : components) {
+		transform.ProcessGUI();
+		for(auto& component : components) {
 			ImGui::Separator();
-			ImGui::TextColored({ 0, 1, 1, 1 }, "%s", component->GetClassName());
-			component->ProcessGui();
+			ImGui::TextColored({1, 1, 0, 1}, "%s", component->GetClassName());
+			component->ProcessGUI();
 		}
 	}
 

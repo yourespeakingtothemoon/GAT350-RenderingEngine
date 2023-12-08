@@ -1,9 +1,11 @@
 #pragma once
 #include "Object.h"
+
+#include <memory>
+
 #include "Core/Core.h"
 #include "Renderer/Renderer.h"
 #include "Components/Component.h"
-#include <memory>
 
 namespace nc
 {
@@ -36,7 +38,7 @@ namespace nc
 		virtual void OnCollisionEnter(Actor* other) {}
 		virtual void OnCollisionExit(Actor* other) {}
 
-		void ProcessGui() override;
+		virtual void ProcessGUI() override;
 
 		class Scene* m_scene = nullptr;
 		friend class Scene;

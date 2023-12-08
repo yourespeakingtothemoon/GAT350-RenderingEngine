@@ -1,4 +1,5 @@
 #include "World02.h"
+
 #include "Framework/Framework.h"
 #include "Input/InputSystem.h"
 
@@ -6,166 +7,200 @@
 #define INDEX
 
 namespace nc {
-    bool World02::Initialize() {
-        // shaders
-        const char* vertexShader =
-            "#version 430\n"
-            "layout (location=0) in vec3 position;"
-            "layout (location=1) in vec3 color;"
-            "layout (location=0) out vec3 ocolor;"
-            "void main() {"
-            "  ocolor = color;"
-            "  gl_Position = vec4(position, 1.0);"
-            "}";
+	bool World02::Initialize() {
+		// Shaders
+		const char* vertexShader =
+			"#version 430\n"
+			"layout (location=0) in vec3 position;"
+			"layout (location=1) in vec3 color;"
+			"layout (location=0) out vec3 ocolor;"
+			"void main() {"
+			"  ocolor = color;"
+			"  gl_Position = vec4(position, 1.0);"
+			"}";
 
-        const char* fragmentShader =
-            "#version 430\n"
-            "layout (location=0) in vec3 color;"
-            "out vec4 ocolor;"
-            "void main() {"
-            "  ocolor = vec4(color, 1);"
-            "}";
+		const char* fragmentShader =
+			"#version 430\n"
+			"layout (location=0) in vec3 color;"
+			"out vec4 ocolor;"
+			"void main() {"
+			"  ocolor = vec4(color, 1);"
+			"}";
 
-        GLuint vs = glCreateShader(GL_VERTEX_SHADER);
-        glShaderSource(vs, 1, &vertexShader, NULL);
-        glCompileShader(vs);
+		GLuint vs = glCreateShader(GL_VERTEX_SHADER);
+		glShaderSource(vs, 1, &vertexShader, NULL);
+		glCompileShader(vs);
 
-        GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
-        glShaderSource(fs, 1, &fragmentShader, NULL);
-        glCompileShader(fs);
+		GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
+		glShaderSource(fs, 1, &fragmentShader, NULL);
+		glCompileShader(fs);
 
-        GLuint program = glCreateProgram();
-        glAttachShader(program, vs);
-        glAttachShader(program, fs);
-        glLinkProgram(program);
-        glUseProgram(program);
-#ifdef INTERLEAVE
-        // vertex data
-        float vertexData[] = {
-            -0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 0.0f,
-             0.8f, -0.8f, 0.0f, 0.0f, 1.0f, 0.0f,
-             -0.8f,  0.8f, 0.0f, 1.0f, 1.0f, 0.0f,
-             0.8f, 0.8f, 0.0f, 0.0f, 0.0f, 1.0f
-        };
+		GLuint program = glCreateProgram();
+		glAttachShader(program, vs);
+		glAttachShader(program, fs);
+		glLinkProgram(program);
+		glUseProgram(program);
 
-        GLuint vbo;
-        glGenBuffers(1, &vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+		#ifdef INTERLEAVE
+		
+		// Vertex data
+		float vertexData[] = {
+			-0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 1.0f,
+			 0.8f,  0.8f, 0.0f, 1.0f, 1.0f, 0.0f,
+			-0.8f,  0.8f, 0.0f, 0.0f, 1.0f, 1.0f,
+			-0.8f, -0.8f, 0.0f, 1.0f, 0.0f, 1.0f,
+			 0.8f, -0.8f, 0.0f, 0.0f, 1.0f, 1.0f,
+			 0.8f,  0.8f, 0.0f, 1.0f, 1.0f, 0.0f
+		};
 
-        glGenVertexArrays(1, &m_vao);
-        glBindVertexArray(m_vao);
+		GLuint vbo;
+		glGenBuffers(1, &vbo);
+		// Position
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 
-        glBindVertexBuffer(0, vbo, 0, 6 * sizeof(GLfloat));
-        // position
-        glEnableVertexAttribArray(0);
-        glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
-        glVertexAttribBinding(0, 0);
-        // color
-        glEnableVertexAttribArray(1);
-        glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
-        glVertexAttribBinding(1, 0);
+		glGenVertexArrays(1, &(this->vao));
+		glBindVertexArray(this->vao);
 
-#elif defined(INDEX)
-        // vertex data
-        const float vertexData[] = {
-            -1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // top-left
-             1.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
-             1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
-            -1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f  // bottom-left
-        };
+		glBindVertexBuffer(0, vbo, 0, sizeof(GLfloat) * 6);
 
-        GLuint indices[] = {
-            0, 1, 3,
-            1, 2, 3
-        };
+		// Position
+		glEnableVertexAttribArray(0);
+		glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+		glVertexAttribBinding(0, 0);
 
-        // vertex buffer object
-        GLuint vbo;
-        glGenBuffers(1, &vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+		// Color
+		glEnableVertexAttribArray(1);
+		glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3);
+		glVertexAttribBinding(1, 0);
 
-        // index buffer object
-        GLuint ibo;
-        glGenBuffers(1, &ibo);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+		#elif defined(INDEX)
 
-        glGenVertexArrays(1, &m_vao);
-        glBindVertexArray(m_vao);
+		// Vertex data
+		const float vertexData[] = {
+			-1.0f,  1.0f, 0.0f, 1.0f, 0.0f, 0.0f, // top-left
+			 1.0f,  1.0f, 0.0f, 0.0f, 1.0f, 0.0f, // top-right
+			 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f, // bottom-right
+			-1.0f, -1.0f, 0.0f, 1.0f, 1.0f, 1.0f  // bottom-left
+		};
 
-        glBindVertexBuffer(0, vbo, 0, 6 * sizeof(GLfloat));
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-        // position
-        glEnableVertexAttribArray(0);
-        glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
-        glVertexAttribBinding(0, 0);
-        // color
-        glEnableVertexAttribArray(1);
-        glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat));
-        glVertexAttribBinding(1, 0);
+		GLuint indices[] = {
+			0, 1, 2,
+			2, 3, 0
+		};
 
-#else
-        // vertex data
-        float positionData[] = {
-            -0.8f, -0.8f, 0.0f,
-             0.8f, -0.8f, 0.0f,
-             -0.8f,  0.8f, 0.0f,
-             0.8f, 0.8f, 0.0f
-        };
+		// Vertex buffer object
+		GLuint vbo;
+		glGenBuffers(1, &vbo);
+		// Position
+		glBindBuffer(GL_ARRAY_BUFFER, vbo);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 
-        float colorData[] = {
-            1.0f, 1.0f, 0.0f,
-            1.0f, 1.0f, 0.0f,
-            1.0f, 1.0f, 0.0f,
-            1.0f, 1.0f, 0.0f
-        };
+		// Index buffer object
+		GLuint ibo;
+		glGenBuffers(1, &ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-        GLuint vbo[2];
-        glGenBuffers(2, vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(positionData), positionData, GL_STATIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW);
+		// Vertex array object
+		glGenVertexArrays(1, &(this->vao));
+		glBindVertexArray(this->vao);
 
-        glGenVertexArrays(1, &m_vao);
-        glBindVertexArray(m_vao);
+		glBindVertexBuffer(0, vbo, 0, sizeof(GLfloat) * 6);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
 
-        // position
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindVertexBuffer(0, vbo[0], 0, 3 * sizeof(GLfloat));
-        // color
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
-        glBindVertexBuffer(1, vbo[1], 0, 3 * sizeof(GLfloat));
-#endif
-        return true;
-    }
+		// Position
+		glEnableVertexAttribArray(0);
+		glVertexAttribFormat(0, 3, GL_FLOAT, GL_FALSE, 0);
+		glVertexAttribBinding(0, 0);
 
-    void World02::Shutdown() {
-    }
+		// Color
+		glEnableVertexAttribArray(1);
+		glVertexAttribFormat(1, 3, GL_FLOAT, GL_FALSE, sizeof(GLfloat) * 3);
+		glVertexAttribBinding(1, 0);
 
-    void World02::Update(float dt) {
-        m_angle += dt * 3;
-        m_position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? -dt : 0;
-        m_position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ?  dt : 0;
-        m_time += dt;
-    }
+		#else
 
-    void World02::Draw(Renderer& renderer) {
-        // pre-render
-        renderer.BeginFrame();
+		// Vertex data
+		float positionData[] = {
+			-0.8f, -0.8f, 0.0f,
+			 0.8f,  0.8f, 0.0f,
+			-0.8f,  0.8f, 0.0f,
+			-0.8f, -0.8f, 0.0f,
+			 0.8f, -0.8f, 0.0f,
+			 0.8f,  0.8f, 0.0f
+		};
 
-        // render
-        glBindVertexArray(m_vao);
-#ifdef INDEX
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-#else
-        glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-#endif
-        // post-render
-        renderer.EndFrame();
-    }
+		float colorData[] =	{
+			1.0f, 0.0f, 1.0f,
+			1.0f, 1.0f, 0.0f,
+			0.0f, 1.0f, 1.0f,
+			1.0f, 0.0f, 1.0f,
+			0.0f, 1.0f, 1.0f,
+			1.0f, 1.0f, 0.0f
+		};
+
+		GLuint vbo[2];
+		glGenBuffers(2, vbo);
+		// Position
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(positionData), positionData, GL_STATIC_DRAW);
+
+		// Color
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(colorData), colorData, GL_STATIC_DRAW);
+
+		glGenVertexArrays(1, &(this->vao));
+		glBindVertexArray(this->vao);
+
+		// Position
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glBindVertexBuffer(0, vbo[0], 0, sizeof(GLfloat) * 3);
+
+		// Color
+		glEnableVertexAttribArray(1);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, 0);
+		glBindVertexBuffer(1, vbo[1], 0, sizeof(GLfloat) * 3);
+
+		#endif
+
+		return true;
+	}
+
+	void World02::Shutdown() {
+	}
+
+	void World02::Update(float deltaTime) {
+		/*
+		this->position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_D) ? deltaTime : 0;
+		this->position.x += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_A) ? -deltaTime : 0;
+
+		this->position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_W) ? deltaTime : 0;
+		this->position.y += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_S) ? -deltaTime : 0;
+
+		this->angle += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_LEFT) ? deltaTime * 90 : 0;
+		this->angle += ENGINE.GetSystem<InputSystem>()->GetKeyDown(SDL_SCANCODE_RIGHT) ? -deltaTime * 90 : 0;
+
+		this->time += deltaTime;
+		*/
+	}
+
+	void World02::Draw(Renderer& renderer) {
+		// pre-render
+		renderer.BeginFrame();
+
+		// render
+		glBindVertexArray(this->vao);
+
+		#ifdef INDEX
+		//glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+		#else
+		glDrawArrays(GL_TRIANGLES, 0, 6);
+		#endif
+
+		// post-render
+		renderer.EndFrame();
+	}
 }

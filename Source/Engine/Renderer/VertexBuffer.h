@@ -1,33 +1,34 @@
 #pragma once
+
 #include "Framework/Resource/Resource.h"
-#include <glad/include/glad/glad.h>
+
 #include <vector>
 
-namespace nc
-{
-	class VertexBuffer : public Resource
-	{
-	public:
-		VertexBuffer();
-		virtual ~VertexBuffer();
+#include <glad/include/glad/glad.h>
 
-		bool Create(std::string name, ...) override;
-		void Draw(GLenum primitiveType = GL_TRIANGLES);
-		void Bind() { glBindVertexArray(m_vao); }
+namespace nc {
+	class VertexBuffer : public Resource {
+		public:
+			VertexBuffer();
+			virtual ~VertexBuffer();
 
-		void CreateVertexBuffer(GLsizei size, GLsizei vertexCount, GLvoid* data);
-		void CreateIndexBuffer(GLenum indexType, GLsizei count, GLvoid* data);
+			bool Create(std::string name, ...) override;
+			void Draw(GLenum primitiveType = GL_TRIANGLES);
+			void Bind() {glBindVertexArray(this->vao);}
 
-		void SetAttribute(int index, GLint size, GLsizei stride, GLuint offset);
+			void CreateVertexBuffer(GLsizei size, GLsizei vertexCount, GLvoid* data);
+			void CreateIndexBuffer(GLenum indexType, GLsizei count, GLvoid* data);
 
-	protected:
-		GLuint m_vao = 0;			// vertex array object
+			void SetAttribute(int index, GLint size, GLsizei stride, GLuint offset);
 
-		GLuint m_vbo = 0;			// vertex buffer object
-		GLuint m_vertexCount = 0;	// number of vertices in vertex buffer
+		protected:
+			GLuint vao = 0;			// vertex array object
 
-		GLuint m_ibo = 0;			// index buffer object
-		GLuint m_indexCount = 0;	// number of indices index buffer
-		GLenum m_indexType = 0;		// data type of index
+			GLuint vbo = 0;			// vertex buffer object
+			GLuint vertexCount = 0;	// number of vertices in vertex buffer
+
+			GLuint ibo = 0;			// index buffer object
+			GLuint indexCount = 0;	// number of indices index buffer
+			GLenum indexType = 0;	// data type of index
 	};
 }
